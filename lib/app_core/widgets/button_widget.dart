@@ -4,13 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/app_core/app_core_library.dart';
 
 class ButtonWidget extends StatelessWidget {
-  final Function() onTap;
+  final Function()? onTap;
   final String title;
   final bool isOutline;
 
   const ButtonWidget({
     super.key,
-    required this.onTap,
+      this.onTap,
     required this.title,
     this.isOutline = false,
   });
@@ -26,9 +26,9 @@ class ButtonWidget extends StatelessWidget {
           width: 1.sw,
           height: 43.h,
           decoration: BoxDecoration(
-            color: isOutline ? Colors.transparent : Colors.white,
+            color:onTap == null ? AppStyle.darkGrey:  isOutline ? Colors.transparent : Colors.white,
             borderRadius: BorderRadius.circular(8.r),
-            border: isOutline
+            border: isOutline && onTap != null
                 ? Border.all(
                     color: Colors.white,
                     width: 1,
@@ -40,7 +40,7 @@ class ButtonWidget extends StatelessWidget {
               title.tr(),
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: !isOutline ? AppStyle.dark : Colors.white,
+                color:onTap == null ? AppStyle.middleGrey: !isOutline ? AppStyle.dark : Colors.white,
                 fontSize: 16.sp,
               ),
             ),

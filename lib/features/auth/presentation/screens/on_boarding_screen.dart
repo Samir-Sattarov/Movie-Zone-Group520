@@ -60,7 +60,6 @@ class OnBoardingScreen extends StatelessWidget {
                 title: "signUp",
               ),
               SizedBox(height: 30.h),
-
             ],
           ),
         ),
