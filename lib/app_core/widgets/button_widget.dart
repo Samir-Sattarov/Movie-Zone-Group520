@@ -7,12 +7,16 @@ class ButtonWidget extends StatelessWidget {
   final Function()? onTap;
   final String title;
   final bool isOutline;
+  final TextStyle? textStyle;
+  final BorderRadius? borderRadius;
 
   const ButtonWidget({
     super.key,
-      this.onTap,
+    this.onTap,
     required this.title,
     this.isOutline = false,
+    this.textStyle,
+    this.borderRadius,
   });
 
   @override
@@ -26,8 +30,12 @@ class ButtonWidget extends StatelessWidget {
           width: 1.sw,
           height: 43.h,
           decoration: BoxDecoration(
-            color:onTap == null ? AppStyle.darkGrey:  isOutline ? Colors.transparent : Colors.white,
-            borderRadius: BorderRadius.circular(8.r),
+            color: onTap == null
+                ? AppStyle.darkGrey
+                : isOutline
+                    ? Colors.transparent
+                    : Colors.white,
+            borderRadius: borderRadius ?? BorderRadius.circular(8.r),
             border: isOutline && onTap != null
                 ? Border.all(
                     color: Colors.white,
@@ -38,11 +46,16 @@ class ButtonWidget extends StatelessWidget {
           child: Center(
             child: Text(
               title.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color:onTap == null ? AppStyle.middleGrey: !isOutline ? AppStyle.dark : Colors.white,
-                fontSize: 16.sp,
-              ),
+              style: textStyle ??
+                  TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: onTap == null
+                        ? AppStyle.middleGrey
+                        : !isOutline
+                            ? AppStyle.dark
+                            : Colors.white,
+                    fontSize: 16.sp,
+                  ),
             ),
           ),
         ),

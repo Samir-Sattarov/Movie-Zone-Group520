@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/app_core/app_core_library.dart';
 import 'package:movie_app/app_core/widgets/button_widget.dart';
+import 'package:movie_app/features/auth/presentation/screens/sign_in_one_screen.dart';
 import 'package:movie_app/resources/resources.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -50,7 +51,9 @@ class OnBoardingScreen extends StatelessWidget {
               ),
               SizedBox(height: 25.h),
               ButtonWidget(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, SignInOneScreen.route());
+                },
                 title: "signIn",
               ),
               SizedBox(height: 16.h),

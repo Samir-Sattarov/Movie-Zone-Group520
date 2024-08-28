@@ -50,6 +50,14 @@ class _ApplicationState extends State<Application> {
                 overlayColor: WidgetStateProperty.all(Colors.transparent),
               ),
             ),
+
+            iconButtonTheme: IconButtonThemeData(
+              style: ButtonStyle(
+                visualDensity: VisualDensity.compact,
+                padding: WidgetStateProperty.all(EdgeInsets.zero),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
+              ),
+            ),
             highlightColor: Colors.transparent,
           ),
           home: const OnBoardingScreen(),
