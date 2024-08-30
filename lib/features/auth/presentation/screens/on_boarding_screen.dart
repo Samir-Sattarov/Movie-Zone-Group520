@@ -5,6 +5,7 @@ import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/widgets/button_widget.dart';
 import 'sign_in_one_screen.dart';
 import '../../../../resources/resources.dart';
+import 'sign_up_one_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   static route() => MaterialPageRoute(builder: (context) => OnBoardingScreen());
@@ -58,7 +59,9 @@ class OnBoardingScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               ButtonWidget(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, SignUpOneScreen.route());
+                },
                 isOutline: true,
                 title: "signUp",
               ),
