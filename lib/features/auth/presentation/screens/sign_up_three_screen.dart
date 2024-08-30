@@ -6,20 +6,19 @@ import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/widgets/button_widget.dart';
 import '../../../../app_core/widgets/text_form_field_widget.dart';
 import 'sign_in_two_screen.dart';
-import 'sign_up_three_screen.dart';
 
-class SignUpTwoScreen extends StatefulWidget {
+class SignUpThreeScreen extends StatefulWidget {
   static route() =>
-      MaterialPageRoute(builder: (context) => const SignUpTwoScreen());
+      MaterialPageRoute(builder: (context) => const SignUpThreeScreen());
 
-  const SignUpTwoScreen({super.key});
+  const SignUpThreeScreen({super.key});
 
   @override
-  State<SignUpTwoScreen> createState() => _SignUpTwoScreenState();
+  State<SignUpThreeScreen> createState() => _SignUpThreeScreenState();
 }
 
-class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
-  final TextEditingController controllerEmail = TextEditingController();
+class _SignUpThreeScreenState extends State<SignUpThreeScreen> {
+  final TextEditingController controllerPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(
@@ -71,7 +70,7 @@ class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
                 ),
                 SizedBox(height: 20.h),
                 Text(
-                  "signUpTwoTitle".tr(),
+                  "signUpThreeTitle".tr(),
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
@@ -80,7 +79,7 @@ class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  "signUpTwoDescription".tr(),
+                  "signUpThreeDescription".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -89,12 +88,12 @@ class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
                 ),
                 SizedBox(height: 24.h),
                 TextFormFieldWidget(
-                  controller: controllerEmail,
-                  hint: "enterYourEmail",
+                  controller: controllerPassword,
+                  hint: "createYourPassword",
                 ),
                 const Spacer(),
                 Text(
-                  "signUpTwoText".tr(),
+                  "signUpThreeText".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -105,7 +104,6 @@ class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
                 ButtonWidget(
                   title: "continue",
                   onTap: () {
-                    Navigator.of(context).push(SignUpThreeScreen.route());
                   },
                 ),
               ],
