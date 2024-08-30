@@ -6,20 +6,19 @@ import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/widgets/button_widget.dart';
 import '../../../../app_core/widgets/text_form_field_widget.dart';
 import 'sign_in_two_screen.dart';
-import 'sign_up_two_screen.dart';
 
-class SignUpOneScreen extends StatefulWidget {
+class SignUpTwoScreen extends StatefulWidget {
   static route() =>
-      MaterialPageRoute(builder: (context) => const SignUpOneScreen());
+      MaterialPageRoute(builder: (context) => const SignUpTwoScreen());
 
-  const SignUpOneScreen({super.key});
+  const SignUpTwoScreen({super.key});
 
   @override
-  State<SignUpOneScreen> createState() => _SignUpOneScreenState();
+  State<SignUpTwoScreen> createState() => _SignUpTwoScreenState();
 }
 
-class _SignUpOneScreenState extends State<SignUpOneScreen> {
-  final TextEditingController controllerName = TextEditingController();
+class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
+  final TextEditingController controllerEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(
@@ -71,7 +70,7 @@ class _SignUpOneScreenState extends State<SignUpOneScreen> {
                 ),
                 SizedBox(height: 20.h),
                 Text(
-                  "signUpOneTitle".tr(),
+                  "signUpTwoTitle".tr(),
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
@@ -80,7 +79,7 @@ class _SignUpOneScreenState extends State<SignUpOneScreen> {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  "signUpOneDescription".tr(),
+                  "signUpTwoDescription".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -89,12 +88,12 @@ class _SignUpOneScreenState extends State<SignUpOneScreen> {
                 ),
                 SizedBox(height: 24.h),
                 TextFormFieldWidget(
-                  controller: controllerName,
-                  hint: "enterYourName",
+                  controller: controllerEmail,
+                  hint: "enterYourEmail",
                 ),
                 const Spacer(),
                 Text(
-                  "signUpOneText".tr(),
+                  "signUpTwoText".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -105,7 +104,6 @@ class _SignUpOneScreenState extends State<SignUpOneScreen> {
                 ButtonWidget(
                   title: "continue",
                   onTap: () {
-                    Navigator.of(context).push(SignUpTwoScreen.route());
                   },
                 ),
               ],
