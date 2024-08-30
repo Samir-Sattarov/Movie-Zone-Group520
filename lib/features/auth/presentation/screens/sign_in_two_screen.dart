@@ -5,20 +5,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/widgets/button_widget.dart';
 import '../../../../app_core/widgets/text_form_field_widget.dart';
-import 'sign_in_two_screen.dart';
 
-class SignInOneScreen extends StatefulWidget {
+import 'sign_in_three_screen.dart';
+
+class SignInTwoScreen extends StatefulWidget {
   static route() =>
-      MaterialPageRoute(builder: (context) => const SignInOneScreen());
+      MaterialPageRoute(builder: (context) => const SignInTwoScreen());
 
-  const SignInOneScreen({super.key});
+  const SignInTwoScreen({super.key});
 
   @override
-  State<SignInOneScreen> createState() => _SignInOneScreenState();
+  State<SignInTwoScreen> createState() => _SignInTwoScreenState();
 }
 
-class _SignInOneScreenState extends State<SignInOneScreen> {
-  final TextEditingController controllerEmail = TextEditingController();
+class _SignInTwoScreenState extends State<SignInTwoScreen> {
+  final TextEditingController controllerPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return KeyboardDismissOnTap(
@@ -45,7 +46,7 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                       SizedBox(
                         width: 120.w,
                         child: LinearProgressIndicator(
-                          value: 0.2,
+                          value: 0.5,
                           color: Colors.white,
                           minHeight: 8.h,
                           borderRadius: BorderRadius.circular(100),
@@ -70,7 +71,7 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ),
                 SizedBox(height: 20.h),
                 Text(
-                  "signInOneTitle".tr(),
+                  "signInTwoTitle".tr(),
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
@@ -79,7 +80,7 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  "signInOneDescription".tr(),
+                  "signInTwoDescription".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -88,10 +89,10 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ),
                 SizedBox(height: 24.h),
                 TextFormFieldWidget(
-                    controller: controllerEmail, hint: "enterEmail"),
+                    controller: controllerPassword, hint: "enterYourPassword"),
                 const Spacer(),
                 Text(
-                  "signInOneText".tr(),
+                  "signInTwoText".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -99,12 +100,10 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                   ),
                 ),
                 SizedBox(height: 24.h),
-                ButtonWidget(
-                  title: "continue",
-                  onTap: () {
-                    Navigator.of(context).push(SignInTwoScreen.route());
-                  },
-                ),
+                  ButtonWidget(title: "continue", onTap: () {
+                  Navigator.of(context).push(SignInThreeScreen.route());
+
+                },),
               ],
             ),
           ),

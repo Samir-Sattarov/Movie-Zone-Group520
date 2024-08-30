@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/app_core/app_core_library.dart';
-import 'package:movie_app/app_core/widgets/button_widget.dart';
-import 'package:movie_app/features/auth/presentation/screens/sign_in_one_screen.dart';
-import 'package:movie_app/resources/resources.dart';
+import '../../../../app_core/app_core_library.dart';
+import '../../../../app_core/widgets/button_widget.dart';
+import 'sign_in_one_screen.dart';
+import '../../../../resources/resources.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   static route() => MaterialPageRoute(builder: (context) => OnBoardingScreen());

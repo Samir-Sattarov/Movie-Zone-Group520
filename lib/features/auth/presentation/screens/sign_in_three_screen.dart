@@ -2,25 +2,44 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pinput/pinput.dart';
 import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/widgets/button_widget.dart';
-import '../../../../app_core/widgets/text_form_field_widget.dart';
-import 'sign_in_two_screen.dart';
 
-class SignInOneScreen extends StatefulWidget {
+class SignInThreeScreen extends StatefulWidget {
   static route() =>
-      MaterialPageRoute(builder: (context) => const SignInOneScreen());
+      MaterialPageRoute(builder: (context) => const SignInThreeScreen());
 
-  const SignInOneScreen({super.key});
+  const SignInThreeScreen({super.key});
 
   @override
-  State<SignInOneScreen> createState() => _SignInOneScreenState();
+  State<SignInThreeScreen> createState() => _SignInThreeScreenState();
 }
 
-class _SignInOneScreenState extends State<SignInOneScreen> {
-  final TextEditingController controllerEmail = TextEditingController();
+class _SignInThreeScreenState extends State<SignInThreeScreen> {
+  final TextEditingController controllerOtp = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      width: 64,
+      height: 64,
+      margin: EdgeInsets.symmetric(horizontal: 5.w),
+      textStyle: TextStyle(
+        fontSize: 20.sp,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xff656E72)),
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Colors.white),
+      borderRadius: BorderRadius.circular(8.r),
+    );
+
     return KeyboardDismissOnTap(
       child: Scaffold(
         body: SafeArea(
@@ -45,7 +64,7 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                       SizedBox(
                         width: 120.w,
                         child: LinearProgressIndicator(
-                          value: 0.2,
+                          value: 1,
                           color: Colors.white,
                           minHeight: 8.h,
                           borderRadius: BorderRadius.circular(100),
@@ -70,7 +89,7 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ),
                 SizedBox(height: 20.h),
                 Text(
-                  "signInOneTitle".tr(),
+                  "signInThreeTitle".tr(),
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.bold,
@@ -79,7 +98,7 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  "signInOneDescription".tr(),
+                  "signInThreeDescription".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -87,11 +106,20 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                   ),
                 ),
                 SizedBox(height: 24.h),
-                TextFormFieldWidget(
-                    controller: controllerEmail, hint: "enterEmail"),
+                Center(
+                  child: Pinput(
+                    defaultPinTheme: defaultPinTheme,
+                    focusedPinTheme: focusedPinTheme,
+                    pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                    showCursor: true,
+                    controller: controllerOtp,
+                    keyboardType: TextInputType.number,
+                    onCompleted: (pin) => print(pin),
+                  ),
+                ),
                 const Spacer(),
                 Text(
-                  "signInOneText".tr(),
+                  "signInThreeText".tr(),
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -102,7 +130,9 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ButtonWidget(
                   title: "continue",
                   onTap: () {
-                    Navigator.of(context).push(SignInTwoScreen.route());
+                    if (controllerOtp.text == "1234") {
+                      // Navigator.push(context, route)
+                    }
                   },
                 ),
               ],
