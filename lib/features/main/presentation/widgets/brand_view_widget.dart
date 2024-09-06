@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/entities/brand_entity.dart';
 
 class BrandViewWidget extends StatelessWidget {
-  final List<BrandEntity> brands;
-  const BrandViewWidget({super.key, required this.brands});
+  final List<BrandEntity> listData;
+  const BrandViewWidget({super.key, required this.listData});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class BrandViewWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             physics: const ClampingScrollPhysics(),
             separatorBuilder: (context, index) => SizedBox(width: 12.w),
-            itemCount: brands.length,
+            itemCount: listData.length,
             itemBuilder: (context, index) {
-              final movie = brands[index];
+              final movie = listData[index];
               return Container(
                 height: 82.r,
                 width: 82.r,

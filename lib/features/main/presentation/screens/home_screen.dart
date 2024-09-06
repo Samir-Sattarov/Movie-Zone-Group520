@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../app_core/utils/test_data.dart';
 import '../../core/entities/set_entity.dart';
 import '../widgets/brand_view_widget.dart';
+import '../widgets/genres_view_widget.dart';
 import '../widgets/home_cover_widget.dart';
 import '../widgets/movie_view_widget.dart';
 
@@ -44,8 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               const SizedBox(height: 10),
-              BrandViewWidget(brands: TestData.brands),
-              const SizedBox(height: 4),
+              const BrandViewWidget(listData: TestData.brands),
+              const SizedBox(height: 10),
+              const GenresViewWidget(listData: TestData.genres),
+              const SizedBox(height: 40),
             ],
           ),
         ),
