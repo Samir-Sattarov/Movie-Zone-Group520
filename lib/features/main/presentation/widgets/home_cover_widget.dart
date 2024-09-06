@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -15,19 +16,43 @@ class HomeCoverWidget extends StatefulWidget {
 
 class _HomeCoverWidgetState extends State<HomeCoverWidget> {
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 420.h, minWidth: 1.sw),
-      child: PageView.builder(
-        itemCount: widget.listMovies.length,
-        scrollDirection: Axis.horizontal,
-        physics: const ClampingScrollPhysics(),
-        itemBuilder: (context, index) {
-          final movie = widget.listMovies[index];
+      width: MediaQuery.of(context).size.width,
+      constraints: BoxConstraints(maxHeight: 320.h, minWidth: 1.sw),
+      child: Stack(
+        children: [
 
-          return _item(movie, index);
-        },
+
+          Swiper(
+            itemCount: widget.listMovies.length,
+            autoplay: true,
+            duration: 300,
+            loop: true,
+            autoplayDelay: 1500,
+            onIndexChanged: (value) {
+              currentIndex = value;
+              setState(() {});
+            },
+            itemBuilder: (context, index) {
+              final movie = widget.listMovies[index];
+              return _item(movie, index);
+            },
+          ),
+          Positioned(
+            child: _indicators(),
+            bottom: 20.h,
+            left: 0,
+            right: 0,
+          ),
+        ],
       ),
     );
   }
@@ -134,9 +159,7 @@ class _HomeCoverWidgetState extends State<HomeCoverWidget> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30.h),
-                  _indicators(),
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 50.h),
                 ],
               ),
             ),
