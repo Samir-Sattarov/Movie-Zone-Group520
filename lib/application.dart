@@ -7,6 +7,7 @@ import 'app_core/cubits/network/network_cubit.dart';
 import 'app_core/utils/app_style.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
 import 'features/main/presentation/screens/home_screen.dart';
+import 'features/main/presentation/screens/main_screen.dart';
 import 'locator.dart';
 
 class Application extends StatefulWidget {
@@ -61,7 +62,7 @@ class _ApplicationState extends State<Application> {
             ),
             highlightColor: Colors.transparent,
           ),
-          home: const HomeScreen(),
+          home: const MainScreen(),
         );
       },
     );
