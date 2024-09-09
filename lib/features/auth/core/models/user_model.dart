@@ -7,12 +7,12 @@ class UserModel extends UserEntity {
   const UserModel({
     required name,
     required surname,
-    required phoneNumber,
+    required email,
     required birthDate,
   }) : super(
           name: name,
           surname: surname,
-          phoneNumber: phoneNumber,
+          email: email,
           birthDate: birthDate,
         );
 
@@ -20,7 +20,7 @@ class UserModel extends UserEntity {
     return UserModel(
       name: entity.name,
       surname: entity.surname,
-      phoneNumber: entity.phoneNumber,
+      email: entity.email,
       birthDate: entity.birthDate,
     );
   }
@@ -30,17 +30,12 @@ class UserModel extends UserEntity {
     return UserModel(
       name: json['first_name'] ?? "",
       surname: json['last_name'] ?? "",
-      phoneNumber: json['phone_number'] ?? "",
+      email: json['email'] ?? "",
       birthDate: "",
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "user": {
-        'first_name': name,
-        'last_name': surname,
-      }
-    };
+    return {};
   }
 }

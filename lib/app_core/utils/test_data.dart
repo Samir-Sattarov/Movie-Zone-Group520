@@ -1,9 +1,16 @@
+import '../../features/auth/core/entities/user_entity.dart';
 import '../../features/main/core/entities/brand_entity.dart';
 import '../../features/main/core/entities/genre_entity.dart';
 import '../../features/main/core/entities/movie_entity.dart';
 import '../../features/main/core/entities/set_entity.dart';
 
 class TestData {
+  static UserEntity user = UserEntity(
+    name: "Mem",
+    surname: "Testov",
+    email: "test@gmail.com",
+    birthDate: DateTime.now().toString(),
+  );
   static List<SetEntity> sets = [
     SetEntity(title: "Popular movies", movies: movies),
     SetEntity(title: "TV series", movies: movies),
