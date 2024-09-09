@@ -7,10 +7,12 @@ import '../../core/entities/movie_entity.dart';
 class MovieViewWidget extends StatelessWidget {
   final String title;
   final List<MovieEntity> listMovies;
+  final EdgeInsets? padding;
   const MovieViewWidget({
     super.key,
     required this.title,
     required this.listMovies,
+    this.padding,
   });
 
   @override
@@ -19,7 +21,7 @@ class MovieViewWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
             title,
             style: TextStyle(
@@ -35,7 +37,7 @@ class MovieViewWidget extends StatelessWidget {
           width: 1.sw,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
             physics: const ClampingScrollPhysics(),
             separatorBuilder: (context, index) => SizedBox(width: 12.w),
             itemCount: listMovies.length,
@@ -56,7 +58,6 @@ class MovieViewWidget extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-
           Image.network(
             entity.imageUrl,
             fit: BoxFit.cover,
@@ -67,10 +68,9 @@ class MovieViewWidget extends StatelessWidget {
               left: 5.w,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
-                decoration:   BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100.r)
-                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100.r)),
                 child: Center(
                   child: Text(
                     'newEpisodes'.tr(),

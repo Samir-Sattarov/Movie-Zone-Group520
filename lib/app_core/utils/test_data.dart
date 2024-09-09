@@ -12,7 +12,7 @@ class TestData {
   ];
 
   static const List<BrandEntity> brands = [
-     BrandEntity(
+    BrandEntity(
       imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
     ),
     BrandEntity(
@@ -23,8 +23,6 @@ class TestData {
     ),
   ];
 
-
-
   static const List<GenreEntity> genres = [
     GenreEntity(
       title: "Action",
@@ -32,12 +30,58 @@ class TestData {
     ),
     GenreEntity(
       title: "Romantic",
-
       imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
     ),
     GenreEntity(
       title: "Triller",
-
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Action",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Romantic",
+      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
+    ),
+    GenreEntity(
+      title: "Triller",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Action",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Romantic",
+      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
+    ),
+    GenreEntity(
+      title: "Triller",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Action",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Romantic",
+      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
+    ),
+    GenreEntity(
+      title: "Triller",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Action",
+      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
+    ),
+    GenreEntity(
+      title: "Romantic",
+      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
+    ),
+    GenreEntity(
+      title: "Triller",
       imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
     ),
   ];

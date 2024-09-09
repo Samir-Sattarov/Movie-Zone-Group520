@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../app_core/widgets/blur_container_widget.dart';
 import '../../../../resources/resources.dart';
 import 'home_screen.dart';
+import 'search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -18,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> screens = [
     const HomeScreen(),
-    Container(),
+    const SearchScreen(),
     Container(),
     Container(),
   ];
@@ -63,6 +65,7 @@ class _MainScreenState extends State<MainScreen> {
     return IconButton(
       onPressed: () {
         currentIndex = index;
+        HapticFeedback.lightImpact();
         setState(() {});
       },
       icon: SizedBox(
