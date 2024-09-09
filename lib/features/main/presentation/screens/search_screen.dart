@@ -11,6 +11,7 @@ import '../widgets/genres_grid_view_widget.dart';
 import '../widgets/genres_view_widget.dart';
 import '../widgets/home_cover_widget.dart';
 import '../widgets/movie_view_widget.dart';
+import 'search_result_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   static route() =>
@@ -36,11 +37,22 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 24.h),
-                  TextFormFieldWidget(
-                    controller: controllerSearch,
-                    hint: "Search...",
-                    backgroundColor: const Color(0xff191B1C),
-                    svg: Svgs.tSearch,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const SearchResultScreen()));
+                    },
+                    child: AbsorbPointer(
+                      child: TextFormFieldWidget(
+                        controller: controllerSearch,
+                        hint: "Search...",
+                        backgroundColor: const Color(0xff191B1C),
+                        svg: Svgs.tSearch,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 20.h),
                   const GenresGridViewWidget(

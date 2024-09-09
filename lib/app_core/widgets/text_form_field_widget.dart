@@ -10,12 +10,15 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? svg;
   final Color? backgroundColor;
   final String? Function(String?)? validator;
+  final bool enableAutoFocus;
   const TextFormFieldWidget({
     super.key,
     required this.controller,
     required this.hint,
     this.validator,
-    this.svg, this.backgroundColor,
+    this.svg,
+    this.backgroundColor,
+    this.enableAutoFocus = false,
   });
 
   @override
@@ -25,6 +28,7 @@ class TextFormFieldWidget extends StatelessWidget {
       height: 45.h,
       child: TextFormField(
         controller: controller,
+        autofocus: enableAutoFocus,
         style: TextStyle(
           fontWeight: FontWeight.w400,
           fontSize: 16.sp,
@@ -42,8 +46,7 @@ class TextFormFieldWidget extends StatelessWidget {
                 )
               : const SizedBox(),
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
-          fillColor:backgroundColor?? AppStyle.darkGrey,
-
+          fillColor: backgroundColor ?? AppStyle.darkGrey,
           hintStyle: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16.sp,
