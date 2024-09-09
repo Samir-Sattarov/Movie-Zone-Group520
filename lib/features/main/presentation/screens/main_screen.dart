@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../app_core/widgets/blur_container_widget.dart';
 import '../../../../resources/resources.dart';
 import 'home_screen.dart';
+import 'my_library_screen.dart';
 import 'search_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> screens = [
     const HomeScreen(),
     const SearchScreen(),
-    Container(),
+    const MyLibraryScreen(),
     Container(),
   ];
 
