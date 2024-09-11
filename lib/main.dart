@@ -27,10 +27,10 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale("ru")],
+      supportedLocales: const [Locale("ru"), Locale("en")],
       path: 'assets/translations',
       saveLocale: true,
-      startLocale: const Locale('ru'),
+      startLocale: const Locale('en'),
       child: const Application(),
     ),
   );

@@ -6,12 +6,14 @@ class ProfileItemWidget extends StatelessWidget {
   final String title;
   final Function() onTap;
   final Widget? prefix;
+  final Widget? suffix;
 
   const ProfileItemWidget({
     super.key,
     required this.title,
     required this.onTap,
     this.prefix,
+    this.suffix,
   });
 
   @override
@@ -51,8 +53,12 @@ class ProfileItemWidget extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                Spacer(),
-                const Icon(Icons.chevron_right_rounded, color: Colors.white),
+                const Spacer(),
+                suffix ??
+                    const Icon(
+                      Icons.chevron_right_rounded,
+                      color: Colors.white,
+                    ),
               ],
             ),
           ),

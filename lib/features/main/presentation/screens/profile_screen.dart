@@ -7,6 +7,7 @@ import '../../../../app_core/utils/test_data.dart';
 import '../widgets/movie_horizontal_card_widget.dart';
 import '../widgets/profile_item_widget.dart';
 import '../widgets/profile_user_widget.dart';
+import 'language_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   static route() =>
@@ -41,7 +42,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               ProfileItemWidget(
                 title: "language",
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => LanguageScreen(
+                        onLangChanged: () {
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  );
+                },
               ),
               SizedBox(height: 28.h),
               _category("others"),
@@ -54,11 +65,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 title: "language",
                 onTap: () {},
               ),
-
               SizedBox(height: 30.h),
               ProfileItemWidget(
                 title: "logOut",
-                prefix: Icon(Icons.exit_to_app, color: Colors.white,),
+                prefix: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.white,
+                ),
                 onTap: () {},
               ),
             ],
@@ -72,11 +85,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Text(
-        text,
+        text.tr(),
         style: TextStyle(
           fontSize: 16.sp,
           fontWeight: FontWeight.w600,
-          color: Color(0xffB9BFC1),
+          color: const Color(0xffB9BFC1),
         ),
       ),
     );
