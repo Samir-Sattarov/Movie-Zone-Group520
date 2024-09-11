@@ -7,6 +7,7 @@ import '../../../../app_core/utils/test_data.dart';
 import '../widgets/movie_horizontal_card_widget.dart';
 import '../widgets/profile_item_widget.dart';
 import '../widgets/profile_user_widget.dart';
+import 'edit_user_screen.dart';
 import 'language_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -30,8 +31,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20.h),
-              ProfileUserWidget(
-                entity: TestData.user,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, EditUserScreen.route());
+                },
+                child: ProfileUserWidget(
+                  entity: TestData.user,
+                ),
               ),
               SizedBox(height: 52.h),
               _category("settings"),
