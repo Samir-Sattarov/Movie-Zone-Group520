@@ -8,6 +8,7 @@ class ButtonWidget extends StatelessWidget {
   final String title;
   final bool isOutline;
   final TextStyle? textStyle;
+  final Widget? prefix;
   final BorderRadius? borderRadius;
 
   const ButtonWidget({
@@ -17,6 +18,7 @@ class ButtonWidget extends StatelessWidget {
     this.isOutline = false,
     this.textStyle,
     this.borderRadius,
+    this.prefix,
   });
 
   @override
@@ -43,20 +45,27 @@ class ButtonWidget extends StatelessWidget {
                   )
                 : null,
           ),
-          child: Center(
-            child: Text(
-              title.tr(),
-              style: textStyle ??
-                  TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: onTap == null
-                        ? AppStyle.middleGrey
-                        : !isOutline
-                            ? AppStyle.dark
-                            : Colors.white,
-                    fontSize: 16.sp,
-                  ),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (prefix != null) ...[
+                prefix!,
+                SizedBox(width: 10.w),
+              ],
+              Text(
+                title.tr(),
+                style: textStyle ??
+                    TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: onTap == null
+                          ? AppStyle.middleGrey
+                          : !isOutline
+                              ? AppStyle.dark
+                              : Colors.white,
+                      fontSize: 16.sp,
+                    ),
+              ),
+            ],
           ),
         ),
       ),

@@ -54,6 +54,8 @@ dependencies:
   pinput: ^5.0.0
   card_swiper: ^3.0.1
   flutter_svg: ^2.0.10+1
+  readmore: ^3.0.0
+  flutter_animate: ^4.5.0
 
 dev_dependencies:
   flutter_test:

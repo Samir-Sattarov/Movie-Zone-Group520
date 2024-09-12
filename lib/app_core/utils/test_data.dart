@@ -96,7 +96,8 @@ class TestData {
   static List<MovieEntity> movies = [
     MovieEntity(
       title: "Test",
-      description: "TESTTTTTTSDKFJSDL:FJSD:FJKDSF:LSJDFLKJ",
+      description:
+          "Я помню чудное мгновенье:Передо мной явилась ты, Как мимолетное виденье,Как гений чистой красоты.В томленьях грусти безнадежной,В тревогах шумной суеты,Звучал мне долго голос нежныйИ снились милые черты.Шли годы. Бурь порыв мятежныйРассеял прежние мечты,И я забыл твой голос нежный,Твои небесные черты.В глуши, во мраке заточеньяТянулись тихо дни моиБез божества, без вдохновенья,Без слез, без жизни, без любви.",
       imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
       releaseDate: DateTime.now(),
       age: 2020,

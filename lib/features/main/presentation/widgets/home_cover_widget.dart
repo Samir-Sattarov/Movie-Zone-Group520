@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../app_core/app_core_library.dart';
+import '../../../../app_core/utils/date_time_helper.dart';
 import '../../core/entities/movie_entity.dart';
 
 class HomeCoverWidget extends StatefulWidget {
@@ -29,8 +30,6 @@ class _HomeCoverWidgetState extends State<HomeCoverWidget> {
       constraints: BoxConstraints(maxHeight: 320.h, minWidth: 1.sw),
       child: Stack(
         children: [
-
-
           Swiper(
             itemCount: widget.listMovies.length,
             autoplay: true,
@@ -136,7 +135,8 @@ class _HomeCoverWidgetState extends State<HomeCoverWidget> {
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "3h 1m",
+                          DateTimeHelper.getFormattedDurationFromMinute(
+                              entity.duration),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.sp,
