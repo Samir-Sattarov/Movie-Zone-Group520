@@ -77,7 +77,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     debugPrint("response $response");
     final model = UserModel.fromJson(
       response['user'],
-      response['addresses'],
     );
 
     return model;
@@ -96,7 +95,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
     final data = UserModel.fromJson(
       response['user'],
-      response['addresses'],
     );
 
     return data;

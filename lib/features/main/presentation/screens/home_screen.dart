@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../app_core/api/firebase_auth_client.dart';
 import '../../../../app_core/utils/test_data.dart';
+import '../../../../locator.dart';
 import '../../core/entities/set_entity.dart';
 import '../widgets/brand_view_widget.dart';
 import '../widgets/genres_view_widget.dart';
@@ -18,6 +21,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late FirebaseAuthClient client;
+
+  @override
+  void initState() {
+    client = locator();
+    initialize();
+    super.initState();
+  }
+
+  initialize() async {
+    // await client.signIn(email: "test1@gmail.com", password: "test1234");
+
+    // await client.getCurrentUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

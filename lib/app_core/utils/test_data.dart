@@ -9,7 +9,8 @@ class TestData {
     name: "Mem",
     surname: "Testov",
     email: "test@gmail.com",
-    birthDate: DateTime.now().toString(),
+    favoriteMovies: [],
+    id: '',
   );
   static List<SetEntity> sets = [
     SetEntity(title: "Popular movies", movies: movies),
