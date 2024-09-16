@@ -105,7 +105,9 @@ class _SignUpOneScreenState extends State<SignUpOneScreen> {
                 ButtonWidget(
                   title: "continue",
                   onTap: () {
-                    Navigator.of(context).push(SignUpTwoScreen.route());
+                    Navigator.of(context).push(
+                      SignUpTwoScreen.route(name: controllerName.text),
+                    );
                   },
                 ),
               ],

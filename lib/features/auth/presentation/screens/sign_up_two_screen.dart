@@ -9,10 +9,14 @@ import 'sign_in_two_screen.dart';
 import 'sign_up_three_screen.dart';
 
 class SignUpTwoScreen extends StatefulWidget {
-  static route() =>
-      MaterialPageRoute(builder: (context) => const SignUpTwoScreen());
+  static route({required String name}) => MaterialPageRoute(
+        builder: (context) => SignUpTwoScreen(
+          name: name,
+        ),
+      );
 
-  const SignUpTwoScreen({super.key});
+  final String name;
+  const SignUpTwoScreen({super.key, required this.name});
 
   @override
   State<SignUpTwoScreen> createState() => _SignUpTwoScreenState();
@@ -105,7 +109,10 @@ class _SignUpTwoScreenState extends State<SignUpTwoScreen> {
                 ButtonWidget(
                   title: "continue",
                   onTap: () {
-                    Navigator.of(context).push(SignUpThreeScreen.route());
+                    Navigator.of(context).push(SignUpThreeScreen.route(
+                      name: widget.name,
+                      email: controllerEmail.text,
+                    ));
                   },
                 ),
               ],

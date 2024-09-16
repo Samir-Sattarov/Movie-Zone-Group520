@@ -8,7 +8,6 @@ import '../../../../resources/resources.dart';
 import 'sign_up_one_screen.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  static route() => MaterialPageRoute(builder: (context) => OnBoardingScreen());
 
   const OnBoardingScreen({super.key});
 

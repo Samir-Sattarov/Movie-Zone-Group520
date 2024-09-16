@@ -57,6 +57,8 @@ dependencies:
   readmore: ^3.0.0
   flutter_animate: ^4.5.0
   cloud_firestore: ^4.17.5
+  another_flushbar: ^1.12.30
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +90,7 @@ flutter:
      - assets/fonts/sf_pro_display/
      - assets/translations/
      - assets/svg/
+     - assets/animations/
 
   fonts:
     - family: SFProDisplay
@@ -130,10 +133,10 @@ spider:
       class_name: Images
       prefix: t
       types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]
-#    - path: assets/animations
-#      class_name: Animations
-#      prefix: t
-#      types: [ .json]
+    - path: assets/animations
+      class_name: Animations
+      prefix: t
+      types: [ .json]
     - path: assets/svg
       class_name: Svgs
       prefix: t

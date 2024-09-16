@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_core/cubits/network/network_cubit.dart';
 import 'app_core/utils/app_style.dart';
+import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
 import 'features/main/presentation/screens/home_screen.dart';
 import 'features/main/presentation/screens/main_screen.dart';
@@ -18,7 +19,7 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
-  bool splashActive = true;
+  late SignUpCubit signUpCubit;
 
   @override
   void initState() {
@@ -26,45 +27,51 @@ class _ApplicationState extends State<Application> {
     super.initState();
   }
 
-  void initialize() {}
+  void initialize() {
+    signUpCubit = locator();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: false,
-      builder: (context, child) {
-        return MaterialApp(
-          title: 'Movie App',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: ThemeData(
-            fontFamily: "SFProDisplay",
-            primarySwatch: Colors.red,
-            splashColor: Colors.transparent,
-            scaffoldBackgroundColor: AppStyle.dark,
-            textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                padding: WidgetStateProperty.all(EdgeInsets.zero),
-                overlayColor: WidgetStateProperty.all(Colors.transparent),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: signUpCubit),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: false,
+        builder: (context, child) {
+          return MaterialApp(
+            title: 'Movie App',
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: ThemeData(
+              fontFamily: "SFProDisplay",
+              primarySwatch: Colors.red,
+              splashColor: Colors.transparent,
+              scaffoldBackgroundColor: AppStyle.dark,
+              textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+                  padding: WidgetStateProperty.all(EdgeInsets.zero),
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                ),
               ),
-            ),
-
-            iconButtonTheme: IconButtonThemeData(
-              style: ButtonStyle(
-                visualDensity: VisualDensity.compact,
-                padding: WidgetStateProperty.all(EdgeInsets.zero),
-                overlayColor: WidgetStateProperty.all(Colors.transparent),
+              iconButtonTheme: IconButtonThemeData(
+                style: ButtonStyle(
+                  visualDensity: VisualDensity.compact,
+                  padding: WidgetStateProperty.all(EdgeInsets.zero),
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                ),
               ),
+              highlightColor: Colors.transparent,
             ),
-            highlightColor: Colors.transparent,
-          ),
-          home: const MainScreen(),
-        );
-      },
+            home: const OnBoardingScreen(),
+          );
+        },
+      ),
     );
   }
 }

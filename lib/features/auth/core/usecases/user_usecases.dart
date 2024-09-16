@@ -14,22 +14,22 @@ class GetCurrentUserUsecase extends UseCase<UserEntity, NoParams> {
   Future<Either<AppError, UserEntity>> call(NoParams params) =>
       authRepository.getCurrentUser();
 }
-
-class EditCurrentUserUsecase
-    extends UseCase<UserEntity, EditCurrentUserUsecaseParams> {
-  final AuthRepository authRepository;
-
-  EditCurrentUserUsecase(this.authRepository);
-
-  @override
-  Future<Either<AppError, UserEntity>> call(EditCurrentUserUsecaseParams params) =>
-      authRepository.editCurrentUser(
-        params.entity,
-      );
-}
-
-class EditCurrentUserUsecaseParams {
-  final UserEntity entity;
-
-  EditCurrentUserUsecaseParams(this.entity);
-}
+//
+// class EditCurrentUserUsecase
+//     extends UseCase<UserEntity, EditCurrentUserUsecaseParams> {
+//   final AuthRepository authRepository;
+//
+//   EditCurrentUserUsecase(this.authRepository);
+//
+//   @override
+//   Future<Either<AppError, UserEntity>> call(EditCurrentUserUsecaseParams params) =>
+//       authRepository.editCurrentUser(
+//         params.entity,
+//       );
+// }
+//
+// class EditCurrentUserUsecaseParams {
+//   final UserEntity entity;
+//
+//   EditCurrentUserUsecaseParams(this.entity);
+// }

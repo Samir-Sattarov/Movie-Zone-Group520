@@ -12,21 +12,16 @@ import '../datasources/auth_remote_data_source.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRepository {
-  Future<Either<AppError, void>> signUp({
-    required String phone,
+  Future<Either<AppError, UserEntity>> signUp({
+    required String email,
+    required String password,
+    required String name,
   });
-  Future<Either<AppError, void>> signIn({
-    required String phone,
+  Future<Either<AppError, UserEntity>> signIn({
+    required String email,
+    required String password,
   });
-  Future<Either<AppError, UserEntity>> checkCode({
-    required String phone,
-    required String code,
-  });
-  Future<Either<AppError, bool>> checkActiveSession();
   Future<Either<AppError, UserEntity>> getCurrentUser();
-  Future<Either<AppError, UserEntity>> editCurrentUser(UserEntity entity);
-  Future<Either<AppError, void>> logOut();
-  Future<Either<AppError, void>> deleteAccount();
 }
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -39,114 +34,32 @@ class AuthRepositoryImpl extends AuthRepository {
   );
 
   @override
-  Future<Either<AppError, void>> signUp({required String phone}) async {
-    try {
-      await remoteDataSource.signUp(
-        phone: phone,
-      );
-
-      return Right(Future.value(null));
-    } catch (error) {
-      return Left(
-        AppError(
-          appErrorType: AppErrorType.api,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<AppError, void>> signIn({required String phone}) async {
-    try {
-      await remoteDataSource.signIn(
-        phone: phone,
-      );
-
-      return Right(Future.value(null));
-    } catch (error) {
-      return Left(
-        AppError(
-          appErrorType: AppErrorType.api,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<AppError, UserEntity>> checkCode(
-      {required String phone, required String code}) async {
-    try {
-      final response = await remoteDataSource.checkCode(
-        phone: phone,
-        code: code,
-      );
-
-      await localDataSource.saveToken(response.token);
-
-      debugPrint("Response user ${response.user}");
-      debugPrint("Response token ${response.token}");
-
-      return Right(response.user);
-    } catch (error) {
-      return Left(
-        AppError(
-          appErrorType: AppErrorType.api,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<AppError, bool>> checkActiveSession() async {
-    try {
-      final StorageService service = StorageService();
-
-      final tokenFromStorage = await service.get(key: 'deviceMessagingToken');
-
-      log("TOken from storage $tokenFromStorage");
-
-      final response = await localDataSource.checkActiveSession();
-
-      return Right(response);
-    } catch (error) {
-      return Left(
-        AppError(
-          appErrorType: AppErrorType.api,
-          errorMessage: error.toString(),
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<AppError, void>> logOut() async {
-    await localDataSource.logOut();
-    return const Right(null);
-  }
-
-  @override
   Future<Either<AppError, UserEntity>> getCurrentUser() async {
+    return action(task: remoteDataSource.getCurrentUser());
+  }
+
+  @override
+  Future<Either<AppError, UserEntity>> signIn({
+    required String email,
+    required String password,
+  }) async {
     return action(
-      task: remoteDataSource.getCurrentUser(),
+      task: remoteDataSource.signIn(email: email, password: password),
     );
   }
 
   @override
-  Future<Either<AppError, void>> deleteAccount() async {
-    await localDataSource.logOut();
+  Future<Either<AppError, UserEntity>> signUp({
+    required String email,
+    required String password,
+    required String name,
+  }) async {
     return action(
-      task: remoteDataSource.deleteAccount(),
-    );
-  }
-
-  @override
-  Future<Either<AppError, UserEntity>> editCurrentUser(
-      UserEntity entity) async {
-    return action<UserEntity>(
-      task: remoteDataSource.editCurrentUser(UserModel.fromEntity(entity)),
+      task: remoteDataSource.signUp(
+        email: email,
+        password: password,
+        name: name,
+      ),
     );
   }
 }

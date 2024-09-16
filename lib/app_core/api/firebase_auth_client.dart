@@ -11,8 +11,9 @@ import 'api_exceptions.dart';
 import 'firebase_collections.dart';
 
 abstract class FirebaseAuthClient {
-  Future<dynamic> signIn({required String email, required String password});
-  Future<dynamic> signUp({required String email, required String password});
+  Future<UserModel> signIn({required String email, required String password});
+  Future<UserModel> signUp(
+      {required String email, required String name, required String password});
   Future<UserModel> getCurrentUser();
 }
 
@@ -25,7 +26,8 @@ class FirebaseAuthClientImpl extends FirebaseAuthClient {
   FirebaseAuthClientImpl({required this.storageService});
 
   @override
-  Future signIn({required String email, required String password}) async {
+  Future<UserModel> signIn(
+      {required String email, required String password}) async {
     try {
       final credential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -55,7 +57,11 @@ class FirebaseAuthClientImpl extends FirebaseAuthClient {
   }
 
   @override
-  Future signUp({required String email, required String password}) async {
+  Future<UserModel> signUp({
+    required String email,
+    required String name,
+    required String password,
+  }) async {
     try {
       final credential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -63,9 +69,9 @@ class FirebaseAuthClientImpl extends FirebaseAuthClient {
       );
 
       final id = credential.user!.uid;
-      final user = UserModel(
+      final model = UserModel(
         id: id,
-        name: "",
+        name: name,
         surname: "",
         email: email,
         favoriteMovies: const <MovieModel>[],
@@ -74,9 +80,11 @@ class FirebaseAuthClientImpl extends FirebaseAuthClient {
       await firestore
           .collection(FirebaseCollections.users)
           .doc(id)
-          .set(user.toJson());
+          .set(model.toJson());
 
       await storageService.save(key: StorageKeys.kUserId, value: id);
+
+      return model;
     } catch (error) {
       throw Exception(error.toString());
     }
@@ -95,7 +103,6 @@ class FirebaseAuthClientImpl extends FirebaseAuthClient {
       }
 
       final model = UserModel.fromJson(response.data()!);
-
 
       log(model.toJson().toString());
       return model;
