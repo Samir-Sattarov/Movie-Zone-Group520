@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_core/cubits/network/network_cubit.dart';
 import 'app_core/utils/app_style.dart';
+import 'app_core/widgets/loading_widget.dart';
+import 'features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
@@ -22,6 +24,7 @@ class Application extends StatefulWidget {
 class _ApplicationState extends State<Application> {
   late SignUpCubit signUpCubit;
   late SignInCubit signInCubit;
+  late AuthCubit authCubit;
 
   @override
   void initState() {
@@ -32,12 +35,14 @@ class _ApplicationState extends State<Application> {
   void initialize() {
     signUpCubit = locator();
     signInCubit = locator();
+    authCubit = locator();
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider.value(value: authCubit..check()),
         BlocProvider.value(value: signUpCubit),
         BlocProvider.value(value: signInCubit),
       ],
@@ -72,7 +77,17 @@ class _ApplicationState extends State<Application> {
               ),
               highlightColor: Colors.transparent,
             ),
-            home: const OnBoardingScreen(),
+            home: BlocBuilder<AuthCubit, AuthState>(
+              builder: (BuildContext context, AuthState state) {
+                if (state is AuthNotSuccess) {
+                  return const OnBoardingScreen();
+                } else if (state is AuthSuccess) {
+                  return const MainScreen();
+                }
+
+                return const LoadingWidget();
+              },
+            ),
           );
         },
       ),

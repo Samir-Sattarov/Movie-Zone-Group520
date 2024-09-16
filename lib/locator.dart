@@ -8,6 +8,7 @@ import 'features/auth/core/datasources/auth_remote_data_source.dart';
 import 'features/auth/core/repository/auth_repository.dart';
 import 'features/auth/core/usecases/auth_usecases.dart';
 import 'features/auth/core/usecases/user_usecases.dart';
+import 'features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 
@@ -18,6 +19,7 @@ void setup() {
 
   locator.registerFactory(() => SignUpCubit(locator()));
   locator.registerFactory(() => SignInCubit(locator()));
+  locator.registerFactory(() => AuthCubit(locator()));
 
   // ================ UseCases ================ //
 
