@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app_core/cubits/network/network_cubit.dart';
 import 'app_core/utils/app_style.dart';
+import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
 import 'features/main/presentation/screens/home_screen.dart';
@@ -20,6 +21,7 @@ class Application extends StatefulWidget {
 
 class _ApplicationState extends State<Application> {
   late SignUpCubit signUpCubit;
+  late SignInCubit signInCubit;
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _ApplicationState extends State<Application> {
 
   void initialize() {
     signUpCubit = locator();
+    signInCubit = locator();
   }
 
   @override
@@ -36,6 +39,7 @@ class _ApplicationState extends State<Application> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: signUpCubit),
+        BlocProvider.value(value: signInCubit),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

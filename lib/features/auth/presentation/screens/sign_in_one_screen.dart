@@ -102,7 +102,9 @@ class _SignInOneScreenState extends State<SignInOneScreen> {
                 ButtonWidget(
                   title: "continue",
                   onTap: () {
-                    Navigator.of(context).push(SignInTwoScreen.route());
+                    Navigator.of(context).push(SignInTwoScreen.route(
+                      email: controllerEmail.text,
+                    ));
                   },
                 ),
               ],
