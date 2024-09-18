@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../app_core/widgets/blur_container_widget.dart';
 import '../../../../resources/resources.dart';
+import '../cubit/current_user/current_user_cubit.dart';
 import 'home_screen.dart';
 import 'my_library_screen.dart';
 import 'profile_screen.dart';
@@ -19,6 +21,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    BlocProvider.of<CurrentUserCubit>(context).load();
+    super.initState();
+  }
 
   List<Widget> screens = [
     const HomeScreen(),

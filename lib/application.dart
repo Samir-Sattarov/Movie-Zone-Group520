@@ -10,6 +10,7 @@ import 'features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
+import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
 import 'features/main/presentation/screens/home_screen.dart';
 import 'features/main/presentation/screens/main_screen.dart';
 import 'locator.dart';
@@ -25,6 +26,7 @@ class _ApplicationState extends State<Application> {
   late SignUpCubit signUpCubit;
   late SignInCubit signInCubit;
   late AuthCubit authCubit;
+  late CurrentUserCubit currentUserCubit;
 
   @override
   void initState() {
@@ -36,6 +38,7 @@ class _ApplicationState extends State<Application> {
     signUpCubit = locator();
     signInCubit = locator();
     authCubit = locator();
+    currentUserCubit = locator();
   }
 
   @override
@@ -43,6 +46,7 @@ class _ApplicationState extends State<Application> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: authCubit..check()),
+        BlocProvider.value(value: currentUserCubit),
         BlocProvider.value(value: signUpCubit),
         BlocProvider.value(value: signInCubit),
       ],

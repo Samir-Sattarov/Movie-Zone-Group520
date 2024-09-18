@@ -27,6 +27,20 @@ class UserEntity extends Equatable {
     );
   }
 
+  UserEntity copyWith({
+    String? name,
+    String? surname,
+    String? email,
+  }) {
+    return UserEntity(
+      id: id,
+      name: name ?? this.name,
+      surname: surname ?? this.surname,
+      email: email ?? this.email,
+      favoriteMovies: favoriteMovies,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

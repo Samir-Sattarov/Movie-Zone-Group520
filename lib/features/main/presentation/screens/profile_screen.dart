@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../app_core/utils/test_data.dart';
 import '../../../auth/presentation/cubit/auth_cubit/auth_cubit.dart';
+import '../cubit/current_user/current_user_cubit.dart';
 import '../widgets/movie_horizontal_card_widget.dart';
 import '../widgets/profile_item_widget.dart';
 import '../widgets/profile_user_widget.dart';
@@ -38,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.push(context, EditUserScreen.route());
                 },
                 child: ProfileUserWidget(
-                  entity: TestData.user,
+                  entity: BlocProvider.of<CurrentUserCubit>(context).user,
                 ),
               ),
               SizedBox(height: 52.h),
