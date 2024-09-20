@@ -151,16 +151,16 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  DateTimeHelper.getFormattedDurationFromMinute(
-                    entity.duration,
-                  ),
-                  style: TextStyle(
-                    color: const Color(0xffB9BFC1),
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                // Text(
+                //   DateTimeHelper.getFormattedDurationFromMinute(
+                //     entity.duration,
+                //   ),
+                //   style: TextStyle(
+                //     color: const Color(0xffB9BFC1),
+                //     fontSize: 16.sp,
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                // ),
               ],
             )
           ],
@@ -223,28 +223,28 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 15.w,
-                              vertical: 5.h,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.r),
-                              color: const Color(0xff272B2C),
-                            ),
-                            child: FittedBox(
-                              child: Center(
-                                child: Text(
-                                  "${entity.age}+",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12.sp,
-                                    color: const Color(0xff747E83),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.symmetric(
+                          //     horizontal: 15.w,
+                          //     vertical: 5.h,
+                          //   ),
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.circular(100.r),
+                          //     color: const Color(0xff272B2C),
+                          //   ),
+                          //   child: FittedBox(
+                          //     child: Center(
+                          //       child: Text(
+                          //         "${entity.age}+",
+                          //         style: TextStyle(
+                          //           fontWeight: FontWeight.w600,
+                          //           fontSize: 12.sp,
+                          //           color: const Color(0xff747E83),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           Text(
                             entity.releaseDate.year.toString(),
                             style: TextStyle(
@@ -252,15 +252,15 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            DateTimeHelper.getFormattedDurationFromMinute(
-                                entity.duration),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                          // Text(
+                          //   DateTimeHelper.getFormattedDurationFromMinute(
+                          //       entity.duration),
+                          //   style: TextStyle(
+                          //     color: Colors.white,
+                          //     fontSize: 16.sp,
+                          //     fontWeight: FontWeight.w600,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

@@ -75,27 +75,27 @@ class MovieViewWidget extends StatelessWidget {
             entity.imageUrl,
             fit: BoxFit.cover,
           ),
-          if (entity.newEpisodes == true)
-            Positioned(
-              top: 5.h,
-              left: 5.w,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100.r)),
-                child: Center(
-                  child: Text(
-                    'newEpisodes'.tr(),
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          // if (entity.newEpisodes == true)
+          //   Positioned(
+          //     top: 5.h,
+          //     left: 5.w,
+          //     child: Container(
+          //       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
+          //       decoration: BoxDecoration(
+          //           color: Colors.white,
+          //           borderRadius: BorderRadius.circular(100.r)),
+          //       child: Center(
+          //         child: Text(
+          //           'newEpisodes'.tr(),
+          //           style: TextStyle(
+          //             fontSize: 12.sp,
+          //             fontWeight: FontWeight.w600,
+          //             color: Colors.black,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
         ],
       ),
     );

@@ -9,10 +9,12 @@ import 'package:flutter/material.dart';
 
 import '../../../auth/core/models/user_model.dart';
 import '../datasources/main_remote_data_source.dart';
+import '../entities/movie_results_entity.dart';
 
 abstract class MainRepository {
   Future<Either<AppError, UserEntity>> getCurrentUser();
-  Future<Either<AppError, void>> editCurrentUser(UserEntity entity );
+  Future<Either<AppError, MovieResultsEntity>> getMovieList();
+  Future<Either<AppError, void>> editCurrentUser(UserEntity entity);
 }
 
 class MainRepositoryImpl extends MainRepository {
@@ -27,7 +29,12 @@ class MainRepositoryImpl extends MainRepository {
 
   @override
   Future<Either<AppError, void>> editCurrentUser(UserEntity entity) async {
-    return action(task: remoteDataSource.editCurrentUser(UserModel.fromEntity(entity)));
+    return action(
+        task: remoteDataSource.editCurrentUser(UserModel.fromEntity(entity)));
+  }
 
+  @override
+  Future<Either<AppError, MovieResultsEntity>> getMovieList() async {
+    return action(task: remoteDataSource.getMovieList());
   }
 }

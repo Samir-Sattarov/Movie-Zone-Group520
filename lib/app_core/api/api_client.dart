@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -55,6 +56,9 @@ class ApiClientImpl extends ApiClient {
         sessionId.isNotEmpty ? {'Authorization': "Bearer $sessionId"} : {};
     final pth = _buildUrl(path, params);
 
+
+    log(pth, name: "Fetch URL");
+    log(header.toString(), name: "Fetch URL HEADERS");
     final response = await _tryCatch(() => clientDio.get(pth,
         options: Options(contentType: "application/json", headers: header)));
     return _errorHandler(response, withParse: withParse);

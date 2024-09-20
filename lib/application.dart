@@ -6,11 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_core/cubits/network/network_cubit.dart';
 import 'app_core/utils/app_style.dart';
 import 'app_core/widgets/loading_widget.dart';
+import 'features/auth/core/datasources/auth_local_data_source.dart';
 import 'features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
+import 'features/main/presentation/cubit/movies/movie_cubit.dart';
 import 'features/main/presentation/screens/home_screen.dart';
 import 'features/main/presentation/screens/main_screen.dart';
 import 'locator.dart';
@@ -27,6 +29,8 @@ class _ApplicationState extends State<Application> {
   late SignInCubit signInCubit;
   late AuthCubit authCubit;
   late CurrentUserCubit currentUserCubit;
+  late AuthLocalDataSource authLocalDataSource;
+  late MovieCubit movieCubit;
 
   @override
   void initState() {
@@ -34,11 +38,18 @@ class _ApplicationState extends State<Application> {
     super.initState();
   }
 
-  void initialize() {
+  void initialize() async {
     signUpCubit = locator();
     signInCubit = locator();
     authCubit = locator();
     currentUserCubit = locator();
+    authLocalDataSource = locator();
+    movieCubit = locator();
+
+    const token =
+        "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNjhiYjdlNjcxZGI5MDk4YzkyODIwNzI2YzFlMzNmMyIsIm5iZiI6MTcyNjY3MzU5OC4wNzk1MTEsInN1YiI6IjY1OTI5OTU5NjUxZmNmNWYxMzhlYjg3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GVZ2Pl55cJ2DL9K8gyIoZuoc96hRliyDJQApIqvJoYA";
+
+    await authLocalDataSource.saveToken(token);
   }
 
   @override
@@ -49,6 +60,7 @@ class _ApplicationState extends State<Application> {
         BlocProvider.value(value: currentUserCubit),
         BlocProvider.value(value: signUpCubit),
         BlocProvider.value(value: signInCubit),
+        BlocProvider.value(value: movieCubit),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

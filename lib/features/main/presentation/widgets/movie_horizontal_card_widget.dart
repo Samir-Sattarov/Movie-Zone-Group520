@@ -57,15 +57,15 @@ class MovieHorizontalCardWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          DateTimeHelper.getFormattedDurationFromMinute(
-                              entity.duration),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.sp,
-                            color: Colors.white,
-                          ),
-                        ),
+                        // Text(
+                        //   DateTimeHelper.getFormattedDurationFromMinute(
+                        //       entity.duration),
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize: 18.sp,
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
                         SizedBox(width: 12.w),
                         Text(
                           "${DateFormat("MMMM").format(entity.releaseDate).substring(0, 3)} ${DateFormat("dd, yyyy").format(entity.releaseDate)}",

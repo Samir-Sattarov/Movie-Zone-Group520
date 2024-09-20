@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import 'app_core/api/firebase_api_client.dart';
@@ -14,8 +15,10 @@ import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/main/core/datasources/main_remote_data_source.dart';
 import 'features/main/core/repository/main_repository.dart';
+import 'features/main/core/usecases/movie_usecases.dart';
 import 'features/main/core/usecases/user_usecases.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
+import 'features/main/presentation/cubit/movies/movie_cubit.dart';
 
 final locator = GetIt.I;
 
@@ -27,12 +30,21 @@ void setup() {
   locator.registerFactory(() => AuthCubit(locator()));
   locator.registerFactory(() => CurrentUserCubit(locator(), locator()));
 
+  // ================ Movie Cubit ================ //
+
+  locator.registerFactory(() => MovieCubit(locator()));
+
   // ================ UseCases ================ //
 
   locator.registerLazySingleton(() => SignInUsecase(locator()));
   locator.registerLazySingleton(() => SignUpUsecase(locator()));
   locator.registerLazySingleton(() => GetCurrentUserUsecase(locator()));
   locator.registerLazySingleton(() => EditCurrentUserUsecase(locator()));
+
+  // ================ Movies ================ //
+
+  locator.registerLazySingleton(() => GetMoviesUsecase(locator()));
+
 
   // ================ Repository / Datasource ================ //
   locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
@@ -55,6 +67,7 @@ void setup() {
     () => MainRemoteDataSourceImpl(
       locator(),
       locator(),
+      locator(),
     ),
   );
 
@@ -69,6 +82,8 @@ void setup() {
     () => FirebaseApiClientImpl(locator()),
   );
 
+  locator.registerLazySingleton<ApiClient>(() => ApiClientImpl(locator(), locator()));
+  locator.registerLazySingleton<Dio>(() => Dio());
   locator.registerLazySingleton(() => StorageService());
   locator.registerLazySingleton(() => SecureStorage());
   locator.registerLazySingleton(() => FirebaseFirestore.instance);
