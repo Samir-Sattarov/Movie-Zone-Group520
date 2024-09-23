@@ -15,9 +15,11 @@ import 'features/auth/presentation/cubit/sign_in/sign_in_cubit.dart';
 import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/main/core/datasources/main_remote_data_source.dart';
 import 'features/main/core/repository/main_repository.dart';
+import 'features/main/core/usecases/genres_usecases.dart';
 import 'features/main/core/usecases/movie_usecases.dart';
 import 'features/main/core/usecases/user_usecases.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
+import 'features/main/presentation/cubit/genres/genres_cubit.dart';
 import 'features/main/presentation/cubit/movies/movie_cubit.dart';
 import 'features/main/presentation/cubit/pupular_movies/popular_movies_cubit.dart';
 import 'features/main/presentation/cubit/top_rated_movies/top_rated_movies_cubit.dart';
@@ -38,6 +40,8 @@ void setup() {
   locator.registerFactory(() => PopularMoviesCubit(locator()));
   locator.registerFactory(() => TopRatedMoviesCubit(locator()));
 
+  locator.registerFactory(() => GenresCubit(locator()));
+
   // ================ UseCases ================ //
 
   locator.registerLazySingleton(() => SignInUsecase(locator()));
@@ -50,6 +54,8 @@ void setup() {
   locator.registerLazySingleton(() => GetMoviesUsecase(locator()));
   locator.registerLazySingleton(() => GetPopularMoviesUsecase(locator()));
   locator.registerLazySingleton(() => GetTopRatedMoviesUsecase(locator()));
+
+  locator.registerFactory(() => GetGenresUsecase(locator()));
 
   // ================ Repository / Datasource ================ //
   locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(

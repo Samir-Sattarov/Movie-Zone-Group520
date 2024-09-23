@@ -31,68 +31,7 @@ class TestData {
     ),
   ];
 
-  static const List<GenreEntity> genres = [
-    GenreEntity(
-      title: "Action",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Romantic",
-      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
-    ),
-    GenreEntity(
-      title: "Triller",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Action",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Romantic",
-      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
-    ),
-    GenreEntity(
-      title: "Triller",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Action",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Romantic",
-      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
-    ),
-    GenreEntity(
-      title: "Triller",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Action",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Romantic",
-      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
-    ),
-    GenreEntity(
-      title: "Triller",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Action",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-    GenreEntity(
-      title: "Romantic",
-      imageUrl: "https://th.wallhaven.cc/small/x6/x6yzoz.jpg",
-    ),
-    GenreEntity(
-      title: "Triller",
-      imageUrl: "https://th.wallhaven.cc/small/zy/zy3l5o.jpg",
-    ),
-  ];
+  static const List<GenreEntity> genres = [];
 
   static List<MovieEntity> movies = [
     MovieEntity(

@@ -9,6 +9,7 @@ import '../../../../app_core/widgets/error_flush_bar_widget.dart';
 import '../../../../app_core/widgets/loading_widget.dart';
 import '../../../../locator.dart';
 import '../../core/entities/set_entity.dart';
+import '../cubit/genres/genres_cubit.dart';
 import '../cubit/movies/movie_cubit.dart';
 import '../cubit/pupular_movies/popular_movies_cubit.dart';
 import '../cubit/top_rated_movies/top_rated_movies_cubit.dart';
@@ -37,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<MovieCubit>(context).load();
     BlocProvider.of<PopularMoviesCubit>(context).load();
     BlocProvider.of<TopRatedMoviesCubit>(context).load();
+    BlocProvider.of<GenresCubit>(context).load();
     // await client.signIn(email: "test1@gmail.com", password: "test1234");
 
     // await client.getCurrentUser();
@@ -57,6 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocListener<PopularMoviesCubit, PopularMoviesState>(
             listener: (context, state) {
               if (state is PopularMoviesError) {
+                ErrorFlushBar(state.message).show(context);
+              }
+            },
+          ),
+          BlocListener<GenresCubit, GenresState>(
+            listener: (context, state) {
+              if (state is GenresError) {
                 ErrorFlushBar(state.message).show(context);
               }
             },
@@ -127,9 +136,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   },
                 // ),
                 const SizedBox(height: 10),
-                const BrandViewWidget(listData: TestData.brands),
-                const SizedBox(height: 10),
-                const GenresViewWidget(listData: TestData.genres),
+
+                BlocBuilder<GenresCubit, GenresState>(
+                  builder: (context, state) {
+                    if (state is GenresLoading) {
+                      return const LoadingWidget();
+                    }
+
+                    if (state is GenresLoaded) {
+                      return GenresViewWidget(listData: state.results.data);
+                    }
+
+                    return const SizedBox();
+                  },
+                ),
                 const SizedBox(height: 40),
               ],
             ),

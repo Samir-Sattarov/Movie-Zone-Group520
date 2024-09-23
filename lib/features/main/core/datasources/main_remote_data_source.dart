@@ -6,6 +6,7 @@ import '../../../../app_core/api/firebase_auth_client.dart';
 import '../../../../app_core/api/firebase_collections.dart';
 import '../../../../app_core/app_core_library.dart';
 import '../../../auth/core/models/user_model.dart';
+import '../models/genre_results_model.dart';
 import '../models/movie_results_model.dart';
 
 abstract class MainRemoteDataSource {
@@ -13,6 +14,7 @@ abstract class MainRemoteDataSource {
   Future<MovieResultsModel> getMovieList();
   Future<MovieResultsModel> getPopularMoviesList();
   Future<MovieResultsModel> getTopRatedMoviesList();
+  Future<GenreResultsModel> getGenreList();
   Future<void> editCurrentUser(UserModel model);
 }
 
@@ -60,12 +62,23 @@ class MainRemoteDataSourceImpl extends MainRemoteDataSource {
   }
 
   @override
-  Future<MovieResultsModel> getTopRatedMoviesList()async  {
+  Future<MovieResultsModel> getTopRatedMoviesList() async {
     final response = await apiClient.get(ApiConstants.topRatedMovies, params: {
       "page": 1,
     });
 
     final model = MovieResultsModel.fromJson(response);
+
+    return model;
+  }
+
+  @override
+  Future<GenreResultsModel> getGenreList() async {
+    final response = await apiClient.get(ApiConstants.genres, params: {
+      "page": 1,
+    });
+
+    final model = GenreResultsModel.fromJson(response);
 
     return model;
   }

@@ -25,7 +25,7 @@ class MovieViewWidget extends StatelessWidget {
         Padding(
           padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
-            title,
+            title.tr(),
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

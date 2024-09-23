@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../../auth/core/models/user_model.dart';
 import '../datasources/main_remote_data_source.dart';
+import '../entities/genre_results_entity.dart';
 import '../entities/movie_results_entity.dart';
 
 abstract class MainRepository {
@@ -16,6 +17,7 @@ abstract class MainRepository {
   Future<Either<AppError, MovieResultsEntity>> getMovieList();
   Future<Either<AppError, MovieResultsEntity>> getPopularMoviesList();
   Future<Either<AppError, MovieResultsEntity>> getTopRatedMoviesList();
+  Future<Either<AppError, GenreResultsEntity>> getGenresList();
   Future<Either<AppError, void>> editCurrentUser(UserEntity entity);
 }
 
@@ -46,8 +48,12 @@ class MainRepositoryImpl extends MainRepository {
   }
 
   @override
-  Future<Either<AppError, MovieResultsEntity>> getTopRatedMoviesList() async{
+  Future<Either<AppError, MovieResultsEntity>> getTopRatedMoviesList() async {
     return action(task: remoteDataSource.getTopRatedMoviesList());
+  }
 
+  @override
+  Future<Either<AppError, GenreResultsEntity>> getGenresList() async {
+    return action(task: remoteDataSource.getGenreList());
   }
 }
