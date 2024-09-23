@@ -15,3 +15,23 @@ class GetMoviesUsecase extends UseCase<MovieResultsEntity, NoParams> {
   Future<Either<AppError, MovieResultsEntity>> call(NoParams params) =>
       mainRepository.getMovieList();
 }
+
+class GetPopularMoviesUsecase extends UseCase<MovieResultsEntity, NoParams> {
+  final MainRepository mainRepository;
+
+  GetPopularMoviesUsecase(this.mainRepository);
+
+  @override
+  Future<Either<AppError, MovieResultsEntity>> call(NoParams params) =>
+      mainRepository.getPopularMoviesList();
+}
+
+class GetTopRatedMoviesUsecase extends UseCase<MovieResultsEntity, NoParams> {
+  final MainRepository mainRepository;
+
+  GetTopRatedMoviesUsecase(this.mainRepository);
+
+  @override
+  Future<Either<AppError, MovieResultsEntity>> call(NoParams params) =>
+      mainRepository.getTopRatedMoviesList();
+}

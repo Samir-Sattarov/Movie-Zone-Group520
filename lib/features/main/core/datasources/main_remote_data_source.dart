@@ -11,6 +11,8 @@ import '../models/movie_results_model.dart';
 abstract class MainRemoteDataSource {
   Future<UserModel> getCurrentUser();
   Future<MovieResultsModel> getMovieList();
+  Future<MovieResultsModel> getPopularMoviesList();
+  Future<MovieResultsModel> getTopRatedMoviesList();
   Future<void> editCurrentUser(UserModel model);
 }
 
@@ -39,6 +41,28 @@ class MainRemoteDataSourceImpl extends MainRemoteDataSource {
       // "include_adult": "false",
       // "language": "en-US",
       // "sort_by": "popularity.desc",
+    });
+
+    final model = MovieResultsModel.fromJson(response);
+
+    return model;
+  }
+
+  @override
+  Future<MovieResultsModel> getPopularMoviesList() async {
+    final response = await apiClient.get(ApiConstants.popularMovies, params: {
+      "page": 1,
+    });
+
+    final model = MovieResultsModel.fromJson(response);
+
+    return model;
+  }
+
+  @override
+  Future<MovieResultsModel> getTopRatedMoviesList()async  {
+    final response = await apiClient.get(ApiConstants.topRatedMovies, params: {
+      "page": 1,
     });
 
     final model = MovieResultsModel.fromJson(response);

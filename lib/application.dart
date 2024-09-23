@@ -13,6 +13,8 @@ import 'features/auth/presentation/cubit/sign_up/sign_up_cubit.dart';
 import 'features/auth/presentation/screens/on_boarding_screen.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
 import 'features/main/presentation/cubit/movies/movie_cubit.dart';
+import 'features/main/presentation/cubit/pupular_movies/popular_movies_cubit.dart';
+import 'features/main/presentation/cubit/top_rated_movies/top_rated_movies_cubit.dart';
 import 'features/main/presentation/screens/home_screen.dart';
 import 'features/main/presentation/screens/main_screen.dart';
 import 'locator.dart';
@@ -31,6 +33,8 @@ class _ApplicationState extends State<Application> {
   late CurrentUserCubit currentUserCubit;
   late AuthLocalDataSource authLocalDataSource;
   late MovieCubit movieCubit;
+  late PopularMoviesCubit popularMoviesCubit;
+  late TopRatedMoviesCubit topRatedMoviesCubit;
 
   @override
   void initState() {
@@ -45,6 +49,8 @@ class _ApplicationState extends State<Application> {
     currentUserCubit = locator();
     authLocalDataSource = locator();
     movieCubit = locator();
+    popularMoviesCubit = locator();
+    topRatedMoviesCubit = locator();
 
     const token =
         "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNjhiYjdlNjcxZGI5MDk4YzkyODIwNzI2YzFlMzNmMyIsIm5iZiI6MTcyNjY3MzU5OC4wNzk1MTEsInN1YiI6IjY1OTI5OTU5NjUxZmNmNWYxMzhlYjg3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GVZ2Pl55cJ2DL9K8gyIoZuoc96hRliyDJQApIqvJoYA";
@@ -61,6 +67,8 @@ class _ApplicationState extends State<Application> {
         BlocProvider.value(value: signUpCubit),
         BlocProvider.value(value: signInCubit),
         BlocProvider.value(value: movieCubit),
+        BlocProvider.value(value: popularMoviesCubit),
+        BlocProvider.value(value: topRatedMoviesCubit),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

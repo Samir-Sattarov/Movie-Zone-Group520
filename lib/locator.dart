@@ -19,6 +19,8 @@ import 'features/main/core/usecases/movie_usecases.dart';
 import 'features/main/core/usecases/user_usecases.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
 import 'features/main/presentation/cubit/movies/movie_cubit.dart';
+import 'features/main/presentation/cubit/pupular_movies/popular_movies_cubit.dart';
+import 'features/main/presentation/cubit/top_rated_movies/top_rated_movies_cubit.dart';
 
 final locator = GetIt.I;
 
@@ -33,6 +35,8 @@ void setup() {
   // ================ Movie Cubit ================ //
 
   locator.registerFactory(() => MovieCubit(locator()));
+  locator.registerFactory(() => PopularMoviesCubit(locator()));
+  locator.registerFactory(() => TopRatedMoviesCubit(locator()));
 
   // ================ UseCases ================ //
 
@@ -44,7 +48,8 @@ void setup() {
   // ================ Movies ================ //
 
   locator.registerLazySingleton(() => GetMoviesUsecase(locator()));
-
+  locator.registerLazySingleton(() => GetPopularMoviesUsecase(locator()));
+  locator.registerLazySingleton(() => GetTopRatedMoviesUsecase(locator()));
 
   // ================ Repository / Datasource ================ //
   locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
@@ -82,7 +87,8 @@ void setup() {
     () => FirebaseApiClientImpl(locator()),
   );
 
-  locator.registerLazySingleton<ApiClient>(() => ApiClientImpl(locator(), locator()));
+  locator.registerLazySingleton<ApiClient>(
+      () => ApiClientImpl(locator(), locator()));
   locator.registerLazySingleton<Dio>(() => Dio());
   locator.registerLazySingleton(() => StorageService());
   locator.registerLazySingleton(() => SecureStorage());

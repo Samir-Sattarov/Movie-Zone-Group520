@@ -14,6 +14,8 @@ import '../entities/movie_results_entity.dart';
 abstract class MainRepository {
   Future<Either<AppError, UserEntity>> getCurrentUser();
   Future<Either<AppError, MovieResultsEntity>> getMovieList();
+  Future<Either<AppError, MovieResultsEntity>> getPopularMoviesList();
+  Future<Either<AppError, MovieResultsEntity>> getTopRatedMoviesList();
   Future<Either<AppError, void>> editCurrentUser(UserEntity entity);
 }
 
@@ -36,5 +38,16 @@ class MainRepositoryImpl extends MainRepository {
   @override
   Future<Either<AppError, MovieResultsEntity>> getMovieList() async {
     return action(task: remoteDataSource.getMovieList());
+  }
+
+  @override
+  Future<Either<AppError, MovieResultsEntity>> getPopularMoviesList() async {
+    return action(task: remoteDataSource.getPopularMoviesList());
+  }
+
+  @override
+  Future<Either<AppError, MovieResultsEntity>> getTopRatedMoviesList() async{
+    return action(task: remoteDataSource.getTopRatedMoviesList());
+
   }
 }
