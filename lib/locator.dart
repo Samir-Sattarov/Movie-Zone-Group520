@@ -22,6 +22,7 @@ import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
 import 'features/main/presentation/cubit/genres/genres_cubit.dart';
 import 'features/main/presentation/cubit/movies/movie_cubit.dart';
 import 'features/main/presentation/cubit/pupular_movies/popular_movies_cubit.dart';
+import 'features/main/presentation/cubit/search_movies/search_movies_cubit.dart';
 import 'features/main/presentation/cubit/top_rated_movies/top_rated_movies_cubit.dart';
 
 final locator = GetIt.I;
@@ -41,6 +42,7 @@ void setup() {
   locator.registerFactory(() => TopRatedMoviesCubit(locator()));
 
   locator.registerFactory(() => GenresCubit(locator()));
+  locator.registerFactory(() => SearchMoviesCubit(locator()));
 
   // ================ UseCases ================ //
 
@@ -54,6 +56,7 @@ void setup() {
   locator.registerLazySingleton(() => GetMoviesUsecase(locator()));
   locator.registerLazySingleton(() => GetPopularMoviesUsecase(locator()));
   locator.registerLazySingleton(() => GetTopRatedMoviesUsecase(locator()));
+  locator.registerFactory(() => SearchMoviesUsecase(locator()));
 
   locator.registerFactory(() => GetGenresUsecase(locator()));
 

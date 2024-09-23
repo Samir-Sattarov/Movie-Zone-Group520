@@ -14,6 +14,7 @@ abstract class MainRemoteDataSource {
   Future<MovieResultsModel> getMovieList();
   Future<MovieResultsModel> getPopularMoviesList();
   Future<MovieResultsModel> getTopRatedMoviesList();
+  Future<MovieResultsModel> searchMovies(String query, int page);
   Future<GenreResultsModel> getGenreList();
   Future<void> editCurrentUser(UserModel model);
 }
@@ -79,6 +80,18 @@ class MainRemoteDataSourceImpl extends MainRemoteDataSource {
     });
 
     final model = GenreResultsModel.fromJson(response);
+
+    return model;
+  }
+
+  @override
+  Future<MovieResultsModel> searchMovies(String query, int page) async {
+    final response = await apiClient.get(ApiConstants.topRatedMovies, params: {
+      "query": query,
+      "page": page,
+    });
+
+    final model = MovieResultsModel.fromJson(response);
 
     return model;
   }

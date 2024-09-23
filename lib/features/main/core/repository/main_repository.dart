@@ -17,6 +17,8 @@ abstract class MainRepository {
   Future<Either<AppError, MovieResultsEntity>> getMovieList();
   Future<Either<AppError, MovieResultsEntity>> getPopularMoviesList();
   Future<Either<AppError, MovieResultsEntity>> getTopRatedMoviesList();
+  Future<Either<AppError, MovieResultsEntity>> searchMovies(
+      String query, int page);
   Future<Either<AppError, GenreResultsEntity>> getGenresList();
   Future<Either<AppError, void>> editCurrentUser(UserEntity entity);
 }
@@ -55,5 +57,11 @@ class MainRepositoryImpl extends MainRepository {
   @override
   Future<Either<AppError, GenreResultsEntity>> getGenresList() async {
     return action(task: remoteDataSource.getGenreList());
+  }
+
+  @override
+  Future<Either<AppError, MovieResultsEntity>> searchMovies(
+      String query, int page) async {
+    return action(task: remoteDataSource.searchMovies(query, page));
   }
 }

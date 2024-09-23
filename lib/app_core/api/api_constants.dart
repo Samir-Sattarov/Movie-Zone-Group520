@@ -8,4 +8,5 @@ static   const appUrl =
   static const popularMovies = "movie/popular";
   static const topRatedMovies = "movie/top_rated";
   static const genres = "genre/movie/list";
+  static const search = "search/movie";
 }
