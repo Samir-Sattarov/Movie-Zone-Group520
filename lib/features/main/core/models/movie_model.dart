@@ -20,11 +20,19 @@ class MovieModel extends MovieEntity {
   }
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
+    final posterPath = json['poster_path'];
+    String poster = ApiConstants.noFoundImageUrl;
+
+    if (posterPath != null) {
+      poster = ApiConstants.imageUrl + posterPath;
+    }
+
+
     return MovieModel(
       title: json['title'],
       description: json['overview'],
-      imageUrl:ApiConstants.imageUrl +  json['poster_path'],
-      releaseDate: DateTime.parse(json['release_date']),
+      imageUrl: poster,
+      releaseDate: DateTime.tryParse(json['release_date']),
     );
   }
 
@@ -33,8 +41,7 @@ class MovieModel extends MovieEntity {
       'title': title,
       'description': description,
       'image_url': imageUrl,
-      'release_date': releaseDate.toIso8601String(),
+      'release_date': releaseDate?.toIso8601String(),
     };
   }
-
 }

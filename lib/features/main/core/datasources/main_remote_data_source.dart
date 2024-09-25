@@ -86,11 +86,13 @@ class MainRemoteDataSourceImpl extends MainRemoteDataSource {
 
   @override
   Future<MovieResultsModel> searchMovies(String query, int page) async {
-    final response = await apiClient.get(ApiConstants.topRatedMovies, params: {
+    final response = await apiClient.get(ApiConstants.search, params: {
       "query": query,
       "page": page,
     });
 
+
+    print(response);
     final model = MovieResultsModel.fromJson(response);
 
     return model;

@@ -245,8 +245,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           //     ),
                           //   ),
                           // ),
-                          Text(
-                            entity.releaseDate.year.toString(),
+                        if(entity.releaseDate != null)  Text(
+                            entity.releaseDate!.year.toString(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16.sp,

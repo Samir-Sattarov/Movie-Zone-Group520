@@ -42,40 +42,42 @@ class MovieHorizontalCardWidget extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    entity.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                      color: Colors.white,
+                  SizedBox(height: 10.h),
+
+                  Expanded(
+                    child: Text(
+                      entity.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Text(
+                      entity.description,
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(height: 12.h),
+
                   FittedBox(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        // Text(
-                        //   DateTimeHelper.getFormattedDurationFromMinute(
-                        //       entity.duration),
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.bold,
-                        //     fontSize: 18.sp,
-                        //     color: Colors.white,
-                        //   ),
-                        // ),
-                        SizedBox(width: 12.w),
-                        Text(
-                          "${DateFormat("MMMM").format(entity.releaseDate).substring(0, 3)} ${DateFormat("dd, yyyy").format(entity.releaseDate)}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.sp,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      "${entity.releaseDate}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

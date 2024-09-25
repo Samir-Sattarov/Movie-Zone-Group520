@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class MovieEntity extends Equatable {
   final String title;
   final String description;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final String imageUrl;
 
   const MovieEntity({

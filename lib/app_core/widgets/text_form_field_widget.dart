@@ -11,6 +11,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? svg;
   final Color? backgroundColor;
   final String? Function(String?)? validator;
+  final Function(String text)? onChanged;
   final bool enableAutoFocus;
   const TextFormFieldWidget({
     super.key,
@@ -20,7 +21,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.svg,
     this.backgroundColor,
     this.enableAutoFocus = false,
-    this.label,
+    this.label,   this.onChanged,
   });
 
   @override
@@ -45,6 +46,7 @@ class TextFormFieldWidget extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             autofocus: enableAutoFocus,
+             onChanged: onChanged,
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 16.sp,

@@ -9,4 +9,5 @@ static   const appUrl =
   static const topRatedMovies = "movie/top_rated";
   static const genres = "genre/movie/list";
   static const search = "search/movie";
+  static const noFoundImageUrl = "https://www.islandofworldpeace.ie/wp-content/uploads/2019/03/no-image-600x600.jpg";
 }

@@ -130,14 +130,14 @@ class _HomeCoverWidgetState extends State<HomeCoverWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        BlurContainerWidget(
+                        if(entity.releaseDate != null)    BlurContainerWidget(
                           padding: EdgeInsets.symmetric(
                             horizontal: 15.w,
                             vertical: 5.h,
                           ),
                           color:  const Color(0xff272B2C).withOpacity(0.6),
                           child: Text(
-                            entity.releaseDate.year.toString(),
+                            entity.releaseDate!.year.toString(),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16.sp,
