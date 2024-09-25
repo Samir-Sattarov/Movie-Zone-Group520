@@ -7,10 +7,14 @@ import 'package:readmore/readmore.dart';
 import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/utils/date_time_helper.dart';
 import '../../../../app_core/utils/test_data.dart';
+import '../../../../app_core/widgets/blur_container_widget.dart';
 import '../../../../app_core/widgets/button_widget.dart';
+import '../../../../app_core/widgets/error_flush_bar_widget.dart';
 import '../../../../app_core/widgets/loading_widget.dart';
+import '../../../../app_core/widgets/success_flush_bar_widget.dart';
 import '../../core/entities/language_entity.dart';
 import '../../core/entities/movie_entity.dart';
+import '../cubit/current_user/current_user_cubit.dart';
 import '../cubit/top_rated_movies/top_rated_movies_cubit.dart';
 import '../widgets/info_movie_widget.dart';
 import '../widgets/movie_view_widget.dart';
@@ -18,6 +22,7 @@ import '../widgets/profile_item_widget.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final MovieEntity entity;
+
   const MovieDetailScreen({super.key, required this.entity});
 
   @override
@@ -30,90 +35,100 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  _posterView(widget.entity),
-                  SizedBox(height: 10.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: ButtonWidget(
-                      title: "startWatching",
-                      prefix: Icon(
-                        Icons.play_arrow_rounded,
-                        color: Colors.black,
-                        size: 30.r,
-                      ),
-                      onTap: () {},
-                    ),
-                  ),
-                  SizedBox(height: 30.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: ReadMoreText(
-                      widget.entity.description,
-                      trimMode: TrimMode.Line,
-                      trimLines: 5,
-                      colorClickableText: Colors.white,
-                      trimCollapsedText: 'showMore'.tr(),
-                      trimExpandedText: 'showLess'.tr(),
-                      moreStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        color: Colors.white,
-                      ),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.sp,
-                        color: const Color(0xffB9BFC1),
+      body: BlocListener<CurrentUserCubit, CurrentUserState>(
+        listener: (context, state) {
+          if (state is CurrentUserError) {
+            ErrorFlushBar(state.message).show(context);
+          }
+          if (state is CurrentUserSaved) {
+            SuccessFlushBar("userSuccessfullySaved".tr()).show(context);
+          }
+        },
+        child: SafeArea(
+          top: false,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _posterView(widget.entity),
+                    SizedBox(height: 10.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: ButtonWidget(
+                        title: "startWatching",
+                        prefix: Icon(
+                          Icons.play_arrow_rounded,
+                          color: Colors.black,
+                          size: 30.r,
+                        ),
+                        onTap: () {},
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20.h),
-                  _trailer(widget.entity),
-                  SizedBox(height: 20.h),
-                  BlocBuilder<TopRatedMoviesCubit, TopRatedMoviesState>(
-                    builder: (context, state) {
-                      if (state is TopRatedMoviesLoading) {
-                        return const LoadingWidget();
-                      }
+                    SizedBox(height: 30.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: ReadMoreText(
+                        widget.entity.description,
+                        trimMode: TrimMode.Line,
+                        trimLines: 5,
+                        colorClickableText: Colors.white,
+                        trimCollapsedText: 'showMore'.tr(),
+                        trimExpandedText: 'showLess'.tr(),
+                        moreStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.sp,
+                          color: const Color(0xffB9BFC1),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    _trailer(widget.entity),
+                    SizedBox(height: 20.h),
+                    BlocBuilder<TopRatedMoviesCubit, TopRatedMoviesState>(
+                      builder: (context, state) {
+                        if (state is TopRatedMoviesLoading) {
+                          return const LoadingWidget();
+                        }
 
-                      if (state is TopRatedMoviesLoaded) {
-                        return MovieViewWidget(
-                          title: "topRated",
-                          listMovies: state.results.data,
-                        );
-                      }
+                        if (state is TopRatedMoviesLoaded) {
+                          return MovieViewWidget(
+                            title: "topRated",
+                            listMovies: state.results.data,
+                          );
+                        }
 
-                      return const SizedBox();
-                    },
-                  ),
-                ],
-              ),
-            ),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              switchInCurve: Curves.linearToEaseOut,
-              switchOutCurve: Curves.linearToEaseOut,
-              child: showInfo
-                  ? InfoMovieWidget(
-                      key: const ValueKey(1),
-                      onClose: () {
-                        showInfo = false;
-                        setState(() {});
+                        return const SizedBox();
                       },
-                    )
-                  : SizedBox(
-                      key: const ValueKey(2),
-                      height: 1.sh,
-                      width: 1.sw,
                     ),
-            ),
-          ],
+                  ],
+                ),
+              ),
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500),
+                switchInCurve: Curves.linearToEaseOut,
+                switchOutCurve: Curves.linearToEaseOut,
+                child: showInfo
+                    ? InfoMovieWidget(
+                        key: const ValueKey(1),
+                        onClose: () {
+                          showInfo = false;
+                          setState(() {});
+                        },
+                      )
+                    : SizedBox(
+                        key: const ValueKey(2),
+                        height: 1.sh,
+                        width: 1.sw,
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -240,58 +255,40 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 57.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Container(
-                          //   padding: EdgeInsets.symmetric(
-                          //     horizontal: 15.w,
-                          //     vertical: 5.h,
-                          //   ),
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(100.r),
-                          //     color: const Color(0xff272B2C),
-                          //   ),
-                          //   child: FittedBox(
-                          //     child: Center(
-                          //       child: Text(
-                          //         "${entity.age}+",
-                          //         style: TextStyle(
-                          //           fontWeight: FontWeight.w600,
-                          //           fontSize: 12.sp,
-                          //           color: const Color(0xff747E83),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        if(entity.releaseDate != null)  Text(
-                            entity.releaseDate!.year.toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          // Text(
-                          //   DateTimeHelper.getFormattedDurationFromMinute(
-                          //       entity.duration),
-                          //   style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontSize: 16.sp,
-                          //     fontWeight: FontWeight.w600,
-                          //   ),
-                          // ),
+                          if (entity.releaseDate != null)
+                            BlurContainerWidget(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 15.w,
+                                vertical: 5.h,
+                              ),
+                              color: const Color(0xff272B2C).withOpacity(0.6),
+                              child: Text(
+                                entity.releaseDate!.year.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 12.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w),
+                    SizedBox(height: 10.h),
+                    BlurContainerWidget(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 5.h,
+                      ),
+                      color: const Color(0xff272B2C).withOpacity(0.6),
                       child: Text(
                         entity.description,
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         style: TextStyle(
-                          color: const Color(0xffB9BFC1),
+                          color: Colors.white,
                           fontSize: 16.sp,
                         ),
                       ),
@@ -317,7 +314,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => BlocProvider.of<CurrentUserCubit>(context)
+                        .saveFavoriteMovie(widget.entity),
                     icon: Icon(
                       Icons.add_circle_outline,
                       size: 30.r,

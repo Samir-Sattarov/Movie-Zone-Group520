@@ -39,8 +39,8 @@ class MovieModel extends MovieEntity {
   Map<String, dynamic> toJson() {
     return {
       'title': title,
-      'description': description,
-      'image_url': imageUrl,
+      'overview': description,
+      'poster_path': imageUrl.replaceAll(ApiConstants.imageUrl, ""),
       'release_date': releaseDate?.toIso8601String(),
     };
   }

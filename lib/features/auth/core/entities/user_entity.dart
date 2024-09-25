@@ -17,6 +17,9 @@ class UserEntity extends Equatable {
     required this.favoriteMovies,
   });
 
+
+  setFavoriteMovie(MovieEntity movie) => favoriteMovies.add(movie);
+
   factory UserEntity.empty() {
     return const UserEntity(
       id: '',

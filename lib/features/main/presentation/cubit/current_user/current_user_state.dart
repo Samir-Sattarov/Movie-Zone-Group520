@@ -13,4 +13,11 @@ final class CurrentUserError extends CurrentUserState {
   CurrentUserError(this.message);
 }
 
-final class CurrentUserLoaded extends CurrentUserState {}
+final class CurrentUserLoaded extends CurrentUserState {
+  final UserEntity user;
+
+  CurrentUserLoaded(this.user);
+}
+
+final class CurrentUserSaved extends CurrentUserState {
+}
