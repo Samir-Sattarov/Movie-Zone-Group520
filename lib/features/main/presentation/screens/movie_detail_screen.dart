@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
@@ -7,8 +8,10 @@ import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/utils/date_time_helper.dart';
 import '../../../../app_core/utils/test_data.dart';
 import '../../../../app_core/widgets/button_widget.dart';
+import '../../../../app_core/widgets/loading_widget.dart';
 import '../../core/entities/language_entity.dart';
 import '../../core/entities/movie_entity.dart';
+import '../cubit/top_rated_movies/top_rated_movies_cubit.dart';
 import '../widgets/info_movie_widget.dart';
 import '../widgets/movie_view_widget.dart';
 import '../widgets/profile_item_widget.dart';
@@ -73,9 +76,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   SizedBox(height: 20.h),
                   _trailer(widget.entity),
                   SizedBox(height: 20.h),
-                  MovieViewWidget(
-                    title: "suggestedMovies",
-                    listMovies: TestData.movies,
+                  BlocBuilder<TopRatedMoviesCubit, TopRatedMoviesState>(
+                    builder: (context, state) {
+                      if (state is TopRatedMoviesLoading) {
+                        return const LoadingWidget();
+                      }
+
+                      if (state is TopRatedMoviesLoaded) {
+                        return MovieViewWidget(
+                          title: "topRated",
+                          listMovies: state.results.data,
+                        );
+                      }
+
+                      return const SizedBox();
+                    },
                   ),
                 ],
               ),
@@ -131,37 +146,41 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               ),
             ),
             SizedBox(width: 12.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'trailer'.tr(),
-                  style: TextStyle(
-                    color: const Color(0xffB9BFC1),
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'trailer'.tr(),
+                    style: TextStyle(
+                      color: const Color(0xffB9BFC1),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                Text(
-                  entity.title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
+                  FittedBox(
+                    child: Text(
+                      entity.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-                // Text(
-                //   DateTimeHelper.getFormattedDurationFromMinute(
-                //     entity.duration,
-                //   ),
-                //   style: TextStyle(
-                //     color: const Color(0xffB9BFC1),
-                //     fontSize: 16.sp,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
-              ],
+                  // Text(
+                  //   DateTimeHelper.getFormattedDurationFromMinute(
+                  //     entity.duration,
+                  //   ),
+                  //   style: TextStyle(
+                  //     color: const Color(0xffB9BFC1),
+                  //     fontSize: 16.sp,
+                  //     fontWeight: FontWeight.w600,
+                  //   ),
+                  // ),
+                ],
+              ),
             )
           ],
         ),
