@@ -74,7 +74,7 @@ class FirebaseAuthClientImpl extends FirebaseAuthClient {
         name: name,
         surname: "",
         email: email,
-        favoriteMovies: const <MovieModel>[],
+        favoriteMovies: const <int, MovieModel>{},
       );
 
       await firestore

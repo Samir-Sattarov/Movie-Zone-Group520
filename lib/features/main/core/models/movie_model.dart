@@ -4,6 +4,7 @@ import '../entities/movie_entity.dart';
 
 class MovieModel extends MovieEntity {
   const MovieModel({
+    required super.id,
     required super.title,
     required super.description,
     required super.imageUrl,
@@ -12,6 +13,7 @@ class MovieModel extends MovieEntity {
 
   factory MovieModel.fromEntity(MovieEntity entity) {
     return MovieModel(
+      id: entity.id,
       title: entity.title,
       description: entity.description,
       imageUrl: entity.imageUrl,
@@ -27,8 +29,8 @@ class MovieModel extends MovieEntity {
       poster = ApiConstants.imageUrl + posterPath;
     }
 
-
     return MovieModel(
+      id: json['id'],
       title: json['title'],
       description: json['overview'],
       imageUrl: poster,
@@ -38,6 +40,7 @@ class MovieModel extends MovieEntity {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'overview': description,
       'poster_path': imageUrl.replaceAll(ApiConstants.imageUrl, ""),

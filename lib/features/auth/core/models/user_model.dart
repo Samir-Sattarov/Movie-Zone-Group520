@@ -24,25 +24,37 @@ class UserModel extends UserEntity {
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    Map<int, MovieModel> favoriteMovies = <int, MovieModel>{};
+
+    final favoriteMoviesData =
+        Map<String, Map<String, dynamic>>.from(json['favorite_movies']);
+
+    favoriteMovies = favoriteMoviesData.map((key, value) {
+      return MapEntry(int.parse(key), MovieModel.fromJson(value));
+    });
+
     return UserModel(
       id: json['id'] ?? "",
       name: json['first_name'] ?? "",
       surname: json['last_name'] ?? "",
       email: json['email'] ?? "",
-      favoriteMovies: List<Map<String, dynamic>>.from(json['favorite_movies'])
-          .map((e) => MovieModel.fromJson(e))
-          .toList(),
+      favoriteMovies: favoriteMovies,
     );
   }
 
   Map<String, dynamic> toJson() {
+    final Map<String, dynamic> favoriteMoviesJson = favoriteMovies.map(
+      (key, value) {
+        return MapEntry(key.toString(), MovieModel.fromEntity(value).toJson());
+      },
+    );
+
     return {
       'id': id,
       'first_name': name,
       'last_name': surname,
       'email': email,
-      'favorite_movies':
-          favoriteMovies.map((e) => MovieModel.fromEntity(e).toJson()),
+      'favorite_movies': favoriteMoviesJson,
     };
   }
 }

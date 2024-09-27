@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../../app_core/utils/test_data.dart';
 import '../../../../app_core/widgets/error_flush_bar_widget.dart';
 import '../../../../app_core/widgets/loading_widget.dart';
+import '../../../../app_core/widgets/success_flush_bar_widget.dart';
+import '../../core/entities/movie_entity.dart';
 import '../cubit/current_user/current_user_cubit.dart';
 import '../widgets/movie_horizontal_card_widget.dart';
 
@@ -18,6 +21,7 @@ class MyLibraryScreen extends StatefulWidget {
 }
 
 class _MyLibraryScreenState extends State<MyLibraryScreen> {
+  List<MovieEntity> movieList = [];
   @override
   void initState() {
     BlocProvider.of<CurrentUserCubit>(context).load();
@@ -31,6 +35,38 @@ class _MyLibraryScreenState extends State<MyLibraryScreen> {
         listener: (context, state) {
           if (state is CurrentUserError) {
             ErrorFlushBar(state.message).show(context);
+          }
+
+          if (state is CurrentUserSaved) {
+            SuccessFlushBar("movieDeletedFromFavorite".tr()).show(context);
+
+            if (mounted) {
+              final data = state.user.favoriteMovies.values.toList();
+
+              Future.delayed(
+                Duration.zero,
+                () {
+                  setState(() {
+                    movieList = data;
+                  });
+                },
+              );
+            }
+          }
+
+          if (state is CurrentUserLoaded) {
+            if (mounted) {
+              final data = state.user.favoriteMovies.values.toList();
+
+              Future.delayed(
+                Duration.zero,
+                () {
+                  setState(() {
+                    movieList = data;
+                  });
+                },
+              );
+            }
           }
         },
         child: SafeArea(
@@ -57,25 +93,43 @@ class _MyLibraryScreenState extends State<MyLibraryScreen> {
                     return const LoadingWidget();
                   }
 
-                  if (state is CurrentUserLoaded) {
-                    final movieList = state.user.favoriteMovies;
-                    return Expanded(
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 20.h),
-                        itemCount: movieList.length,
-                        itemBuilder: (context, index) {
-                          final movie = movieList[index];
-                          return MovieHorizontalCardWidget(
+                  return Expanded(
+                    child:   movieList.isEmpty ?   Center(
+                      child: Text('Empty...', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.sp, color: Colors.white,),
+                    )) :ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 20.h),
+                      itemCount: movieList.length,
+                      itemBuilder: (context, index) {
+                        final movie = movieList[index];
+                        return Slidable(
+                          key: UniqueKey(),
+                          direction: Axis.horizontal,
+                          endActionPane: ActionPane(
+                            motion: const BehindMotion(),
+                            children: [
+                              SlidableAction(
+                                onPressed: (context) async =>
+                                    BlocProvider.of<CurrentUserCubit>(context)
+                                        .removeFavoriteMovie(movie),
+                                padding: EdgeInsets.zero,
+                                spacing: 0,
+                                autoClose: true,
+                                backgroundColor: const Color(0xFFFE4A49),
+                                foregroundColor: Colors.white,
+                                icon: Icons.delete,
+                                label: 'Delete',
+                              ),
+                            ],
+                          ),
+                          child: MovieHorizontalCardWidget(
                             entity: movie,
-                          );
-                        },
-                      ),
-                    );
-                  }
-
-                  return const SizedBox();
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             ],

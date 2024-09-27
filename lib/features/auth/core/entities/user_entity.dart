@@ -7,7 +7,7 @@ class UserEntity extends Equatable {
   final String name;
   final String surname;
   final String email;
-  final List<MovieEntity> favoriteMovies;
+  final Map<int, MovieEntity> favoriteMovies;
 
   const UserEntity({
     required this.id,
@@ -17,8 +17,8 @@ class UserEntity extends Equatable {
     required this.favoriteMovies,
   });
 
-
-  setFavoriteMovie(MovieEntity movie) => favoriteMovies.add(movie);
+  setFavoriteMovie(MovieEntity movie) => favoriteMovies[movie.id] = movie;
+  deleteFavoriteMovie(MovieEntity movie) => favoriteMovies.remove(movie.id);
 
   factory UserEntity.empty() {
     return const UserEntity(
@@ -26,7 +26,7 @@ class UserEntity extends Equatable {
       name: '',
       email: '',
       surname: '',
-      favoriteMovies: [],
+      favoriteMovies: <int, MovieEntity>{},
     );
   }
 

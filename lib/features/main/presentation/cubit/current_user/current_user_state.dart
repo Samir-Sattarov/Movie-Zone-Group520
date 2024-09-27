@@ -20,4 +20,8 @@ final class CurrentUserLoaded extends CurrentUserState {
 }
 
 final class CurrentUserSaved extends CurrentUserState {
+  final UserEntity user;
+
+  CurrentUserSaved(this.user);
+
 }

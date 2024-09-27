@@ -31,9 +31,22 @@ class CurrentUserCubit extends Cubit<CurrentUserState> {
     );
   }
 
+  removeFavoriteMovie(MovieEntity movie) async {
+    _user.deleteFavoriteMovie(movie);
+
+    final response =
+        await editCurrentUserUsecase.call(EditCurrentUserUsecaseParams(_user));
+
+    response.fold(
+      (l) => emit(CurrentUserError(l.errorMessage)),
+      (r) => emit(CurrentUserSaved(_user)),
+    );
+  }
+
   saveFavoriteMovie(MovieEntity movie) async {
     _user.setFavoriteMovie(movie);
 
+    // print(_user.favoriteMovies);
     emit(CurrentUserLoading());
 
     final response =
@@ -41,7 +54,7 @@ class CurrentUserCubit extends Cubit<CurrentUserState> {
 
     response.fold(
       (l) => emit(CurrentUserError(l.errorMessage)),
-      (r) => emit(CurrentUserSaved()),
+      (r) => emit(CurrentUserSaved(_user)),
     );
   }
 

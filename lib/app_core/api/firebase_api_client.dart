@@ -127,6 +127,9 @@ class FirebaseApiClientImpl extends FirebaseApiClient {
       throw ArgumentError(tr('documentIdIsRequiredToUpdate'));
     }
     try {
+
+      print("PARAMS $params");
+
       await _client.collection(collection).doc(params['id']).update(params);
     } catch (e) {
       throw _handleError(e, tr('errorUpdatingDocument'));
@@ -182,6 +185,7 @@ class FirebaseApiClientImpl extends FirebaseApiClient {
   Future<void> putWithId(String collection,
       {required String id, required Map<String, dynamic> params}) async {
     try {
+
       await _client.collection(collection).doc(id).update(params);
     } catch (e) {
       throw _handleError(e, tr('errorUpdatingDocument'));

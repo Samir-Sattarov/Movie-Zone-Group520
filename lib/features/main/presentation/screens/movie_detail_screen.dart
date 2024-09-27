@@ -30,7 +30,18 @@ class MovieDetailScreen extends StatefulWidget {
 }
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  bool isSaveActive = false;
   bool showInfo = false;
+
+  @override
+  void initState() {
+    isSaveActive = !BlocProvider
+        .of<CurrentUserCubit>(context)
+        .user
+        .favoriteMovies
+        .containsKey(widget.entity.id);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +52,16 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             ErrorFlushBar(state.message).show(context);
           }
           if (state is CurrentUserSaved) {
+            if (mounted) {
+              Future.delayed(Duration.zero, () {
+                setState(() {
+                  isSaveActive = !state.user
+                      .favoriteMovies
+                      .containsKey(widget.entity.id);
+                });
+              },);
+            }
+
             SuccessFlushBar("userSuccessfullySaved".tr()).show(context);
           }
         },
@@ -115,17 +136,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 switchOutCurve: Curves.linearToEaseOut,
                 child: showInfo
                     ? InfoMovieWidget(
-                        key: const ValueKey(1),
-                        onClose: () {
-                          showInfo = false;
-                          setState(() {});
-                        },
-                      )
+                  key: const ValueKey(1),
+                  onClose: () {
+                    showInfo = false;
+                    setState(() {});
+                  },
+                )
                     : SizedBox(
-                        key: const ValueKey(2),
-                        height: 1.sh,
-                        width: 1.sw,
-                      ),
+                  key: const ValueKey(2),
+                  height: 1.sh,
+                  width: 1.sw,
+                ),
               ),
             ],
           ),
@@ -314,12 +335,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: () => BlocProvider.of<CurrentUserCubit>(context)
-                        .saveFavoriteMovie(widget.entity),
+                    onPressed: !isSaveActive
+                        ? () {
+                      BlocProvider.of<CurrentUserCubit>(context)
+                          .removeFavoriteMovie(widget.entity);
+                    }
+                        : () {
+                      BlocProvider.of<CurrentUserCubit>(context)
+                          .saveFavoriteMovie(widget.entity);
+                    },
                     icon: Icon(
-                      Icons.add_circle_outline,
+                      !isSaveActive
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border_rounded,
                       size: 30.r,
-                      color: Colors.white,
+                      color: !isSaveActive ? Colors.red : Colors.white,
                     ),
                   ),
                   SizedBox(width: 10.w),
