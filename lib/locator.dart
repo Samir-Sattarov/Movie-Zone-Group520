@@ -21,6 +21,7 @@ import 'features/main/core/usecases/user_usecases.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
 import 'features/main/presentation/cubit/genres/genres_cubit.dart';
 import 'features/main/presentation/cubit/movies/movie_cubit.dart';
+import 'features/main/presentation/cubit/network_cubit/network_cubit.dart';
 import 'features/main/presentation/cubit/pupular_movies/popular_movies_cubit.dart';
 import 'features/main/presentation/cubit/search_movies/search_movies_cubit.dart';
 import 'features/main/presentation/cubit/top_rated_movies/top_rated_movies_cubit.dart';
@@ -30,6 +31,7 @@ final locator = GetIt.I;
 void setup() {
   // ================ BLoC / Cubit ================ //
 
+  locator.registerFactory(() => NetworkCubit(locator()));
   locator.registerFactory(() => SignUpCubit(locator()));
   locator.registerFactory(() => SignInCubit(locator()));
   locator.registerFactory(() => AuthCubit(locator()));
@@ -101,5 +103,6 @@ void setup() {
   locator.registerLazySingleton<Dio>(() => Dio());
   locator.registerLazySingleton(() => StorageService());
   locator.registerLazySingleton(() => SecureStorage());
+  locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
   locator.registerLazySingleton(() => FirebaseFirestore.instance);
 }

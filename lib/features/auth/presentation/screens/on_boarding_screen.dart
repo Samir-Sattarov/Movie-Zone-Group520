@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:turn_page_transition/turn_page_transition.dart';
 import '../../../../app_core/app_core_library.dart';
 import '../../../../app_core/widgets/button_widget.dart';
 import 'sign_in_one_screen.dart';
@@ -52,14 +53,30 @@ class OnBoardingScreen extends StatelessWidget {
               SizedBox(height: 25.h),
               ButtonWidget(
                 onTap: () {
-                  Navigator.push(context, SignInOneScreen.route());
+                  Navigator.of(context).push(
+                    TurnPageRoute(
+                      overleafColor: Colors.red,
+                      animationTransitionPoint: 0.9,
+                      transitionDuration: const Duration(milliseconds: 500),
+                      reverseTransitionDuration: const Duration(milliseconds: 300),
+                      builder: (context) => const SignInOneScreen(),
+                    ),
+                  );
                 },
                 title: "signIn",
               ),
               SizedBox(height: 16.h),
               ButtonWidget(
                 onTap: () {
-                  Navigator.push(context, SignUpOneScreen.route());
+                  Navigator.of(context).push(
+                    TurnPageRoute(
+                      overleafColor: Colors.red,
+                      animationTransitionPoint: 0.9,
+                      transitionDuration: const Duration(milliseconds: 500),
+                      reverseTransitionDuration: const Duration(milliseconds: 300),
+                      builder: (context) => const SignUpOneScreen(),
+                    ),
+                  );
                 },
                 isOutline: true,
                 title: "signUp",

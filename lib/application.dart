@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'app_core/cubits/network/network_cubit.dart';
 import 'app_core/utils/app_style.dart';
 import 'app_core/widgets/loading_widget.dart';
 import 'features/auth/core/datasources/auth_local_data_source.dart';
@@ -14,6 +13,7 @@ import 'features/auth/presentation/screens/on_boarding_screen.dart';
 import 'features/main/presentation/cubit/current_user/current_user_cubit.dart';
 import 'features/main/presentation/cubit/genres/genres_cubit.dart';
 import 'features/main/presentation/cubit/movies/movie_cubit.dart';
+import 'features/main/presentation/cubit/network_cubit/network_cubit.dart';
 import 'features/main/presentation/cubit/pupular_movies/popular_movies_cubit.dart';
 import 'features/main/presentation/cubit/search_movies/search_movies_cubit.dart';
 import 'features/main/presentation/cubit/top_rated_movies/top_rated_movies_cubit.dart';
@@ -29,6 +29,7 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
+  late NetworkCubit networkCubit;
   late SignUpCubit signUpCubit;
   late SignInCubit signInCubit;
   late AuthCubit authCubit;
@@ -47,6 +48,7 @@ class _ApplicationState extends State<Application> {
   }
 
   void initialize() async {
+    networkCubit = locator();
     signUpCubit = locator();
     signInCubit = locator();
     authCubit = locator();
@@ -68,6 +70,7 @@ class _ApplicationState extends State<Application> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider.value(value: networkCubit..check()),
         BlocProvider.value(value: authCubit..check()),
         BlocProvider.value(value: currentUserCubit),
         BlocProvider.value(value: searchMoviesCubit),
@@ -96,28 +99,41 @@ class _ApplicationState extends State<Application> {
               scaffoldBackgroundColor: AppStyle.dark,
               textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
-                  padding: WidgetStateProperty.all(EdgeInsets.zero),
-                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
                 ),
               ),
               iconButtonTheme: IconButtonThemeData(
                 style: ButtonStyle(
                   visualDensity: VisualDensity.compact,
-                  padding: WidgetStateProperty.all(EdgeInsets.zero),
-                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
                 ),
               ),
               highlightColor: Colors.transparent,
             ),
-            home: BlocBuilder<AuthCubit, AuthState>(
-              builder: (BuildContext context, AuthState state) {
-                if (state is AuthNotSuccess) {
-                  return const OnBoardingScreen();
-                } else if (state is AuthSuccess) {
-                  return const MainScreen();
+            home: BlocBuilder<NetworkCubit, NetworkState>(
+              builder: (context, state) {
+                if (state is NetworkNoConnected) {
+                  return const Scaffold(
+                    body: Center(
+                      child: Text('NO CONNECTION', style: TextStyle(
+                        color: Colors.white
+                      ),),
+                    ),
+                  );
                 }
+                return BlocBuilder<AuthCubit, AuthState>(
+                  builder: (BuildContext context, AuthState state) {
+                    if (state is AuthNotSuccess) {
+                      return const OnBoardingScreen();
+                    } else if (state is AuthSuccess) {
+                      return const MainScreen();
+                    }
 
-                return const LoadingWidget();
+                    return const LoadingWidget();
+                  },
+                );
               },
             ),
           );

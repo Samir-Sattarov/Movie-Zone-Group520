@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.5.0-222.0.dev <4.0.0'
+  sdk: '>=3.4.0-222.0.dev <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -46,7 +46,8 @@ dependencies:
   easy_localization: ^3.0.7
   flutter_screenutil: ^5.9.3
   dio_cache_interceptor: ^3.5.0
-  internet_connection_checker: ^2.0.0
+  internet_connection_checker: ^1.0.0+1
+  turn_page_transition:
   flutter_secure_storage: ^9.2.2
   spider: ^4.2.2
   percent_indicator: ^4.2.3

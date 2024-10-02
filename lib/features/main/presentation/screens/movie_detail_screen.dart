@@ -140,7 +140,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   onClose: () {
                     showInfo = false;
                     setState(() {});
-                  },
+                  }, entity: widget.entity,
                 )
                     : SizedBox(
                   key: const ValueKey(2),

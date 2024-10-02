@@ -32,7 +32,7 @@ class MovieViewWidget extends StatelessWidget {
               fontSize: 24.sp,
             ),
           ),
-        ),
+        ).animate().slideX(),
         SizedBox(height: 20.h),
         SizedBox(
           height: 200.h,
@@ -56,6 +56,15 @@ class MovieViewWidget extends StatelessWidget {
                   );
                 },
                 child: _item(movie),
+              ).animate().slide(
+                begin: const Offset(-1, -1),
+
+                duration: 300.milliseconds,
+
+                delay: index >= 10
+                    ? Duration.zero
+                    : Duration(milliseconds: (index * 100).toInt()),
+                curve: Curves.linear,
               );
             },
           ),

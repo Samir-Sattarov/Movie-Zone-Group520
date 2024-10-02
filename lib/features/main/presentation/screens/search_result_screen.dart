@@ -44,7 +44,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
     if (pixels == maxPixels) {
       print("end");
-      BlocProvider.of<SearchMoviesCubit>(context).loadMore(controllerSearch.text);
+      BlocProvider.of<SearchMoviesCubit>(context)
+          .loadMore(controllerSearch.text);
     }
   }
 
@@ -64,8 +65,6 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
             if (state is SearchMoviesError) {
               ErrorFlushBar(state.message).show(context);
             }
-
-
           },
           child: SafeArea(
             child: Column(
@@ -105,11 +104,20 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                           separatorBuilder: (context, index) =>
                               SizedBox(height: 20.h),
                           itemCount: movies.length,
+                          addAutomaticKeepAlives: true,
                           itemBuilder: (context, index) {
                             final movie = movies[index];
                             return MovieHorizontalCardWidget(
                               entity: movie,
-                            );
+                            )      .animate()
+                                .slideX(
+                              duration: 300.milliseconds,
+                              delay: index >= 10
+                                  ? Duration.zero
+                                  : Duration(milliseconds: (index * 100).toInt()),
+                              curve: Curves.linear,
+                            )
+                                .fadeIn();
                           },
                         ),
                       );

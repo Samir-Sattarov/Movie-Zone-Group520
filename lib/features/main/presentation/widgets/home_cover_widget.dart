@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -11,6 +12,7 @@ import '../../../../app_core/widgets/error_flush_bar_widget.dart';
 import '../../../../app_core/widgets/loading_widget.dart';
 import '../../core/entities/movie_entity.dart';
 import '../cubit/movies/movie_cubit.dart';
+import '../screens/main_screen.dart';
 
 class HomeCoverWidget extends StatefulWidget {
   const HomeCoverWidget({super.key});
@@ -93,7 +95,7 @@ class _HomeCoverWidgetState extends State<HomeCoverWidget> {
             entity.imageUrl,
             fit: BoxFit.cover,
           ),
-        ),
+        ).animate().shimmer(),
         Container(
           width: 1.sw,
           height: 1.sh,

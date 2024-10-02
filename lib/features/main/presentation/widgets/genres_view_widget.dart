@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../app_core/widgets/blur_container_widget.dart';
@@ -36,6 +37,7 @@ class GenresViewWidget extends StatelessWidget {
             physics: const ClampingScrollPhysics(),
             separatorBuilder: (context, index) => SizedBox(width: 12.w),
             itemCount: listData.length,
+            addAutomaticKeepAlives: true,
             itemBuilder: (context, index) {
               final brand = listData[index];
               return BlurContainerWidget(
@@ -62,7 +64,18 @@ class GenresViewWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
+              )
+                  .animate()
+                  .fadeIn(
+                    duration: const Duration(milliseconds: 300),
+                    delay: Duration(
+                      milliseconds: (index * 200).toInt(),
+                    ),
+                  )
+                  .then()
+                  .flip()
+                  .then()
+                  .shimmer();
             },
           ),
         ),

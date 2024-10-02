@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -64,7 +65,12 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
         ),
-      ),
+      ).animate().slide(
+            end: Offset(0, 0),
+            curve: Curves.easeInOutSine,
+            begin: Offset(0, 5),
+            duration: Duration(milliseconds: 800),
+          ),
     );
   }
 

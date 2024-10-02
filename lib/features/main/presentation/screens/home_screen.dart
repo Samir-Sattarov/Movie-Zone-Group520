@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,6 +18,7 @@ import '../widgets/brand_view_widget.dart';
 import '../widgets/genres_view_widget.dart';
 import '../widgets/home_cover_widget.dart';
 import '../widgets/movie_view_widget.dart';
+import 'main_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => const HomeScreen());
